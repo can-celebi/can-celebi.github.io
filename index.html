@@ -1,232 +1,383 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Can Çelebi | Postdoctoral Researcher</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Can Çelebi | Experimental & Behavioral Economics</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap');
+
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            scroll-behavior: smooth;
         }
-        .section-title {
-            @apply text-3xl font-bold text-slate-800 mb-8 border-b-2 border-slate-300 pb-2;
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
         }
-        .project-card {
-            @apply bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300;
+
+        /* --- Header & Navigation --- */
+        header {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 1rem 0; /* Reduced padding slightly */
+            text-align: center;
         }
+        
+        nav {
+            background-color: #34495e;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Vertically align items */
+        }
+
+        nav ul li a {
+            display: block;
+            color: #ecf0f1;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #46627f;
+        }
+
+        /* CV Button Styling in Nav */
+        .nav-cv-button {
+            background-color: #3498db;
+            border-radius: 5px;
+            margin-left: 15px;
+            padding: 8px 15px !important; /* Overriding default padding */
+            line-height: 1.2; /* Adjust for vertical centering */
+        }
+
+        .nav-cv-button:hover {
+            background-color: #2980b9 !important;
+        }
+        
+        /* --- Hero Section (Name, Title, Photo) --- */
+        .hero {
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            padding: 40px 20px;
+            background: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .hero-text {
+            text-align: center; /* Center text on smaller screens */
+        }
+
+        @media (min-width: 600px) {
+            .hero-text {
+                text-align: left;
+            }
+        }
+
+        .hero-text h1 {
+            font-family: 'Lora', serif;
+            font-size: 2.8em;
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+        }
+
+        .hero-text p {
+            font-size: 1.2em;
+            margin: 0;
+            color: #555;
+        }
+
+        .hero-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #e0e0e0; /* Placeholder background */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            flex-shrink: 0; /* Prevent image from shrinking */
+        }
+        
+        .hero-photo img {
+             width: 100%;
+             height: auto;
+             /* This will ensure your transparent PNG fits nicely */
+        }
+
+
+        /* --- General Section Styling --- */
+        section {
+            padding: 40px 20px;
+            background-color: #fff;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            font-family: 'Lora', serif;
+            font-size: 2em;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        h3 {
+            font-family: 'Lora', serif;
+            color: #34495e;
+            margin-top: 30px;
+        }
+
+        /* --- Publications & Projects Styling --- */
+        .publication, .project {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .publication:last-child, .project:last-child {
+            border-bottom: none;
+        }
+
+        .publication-title, .project-title {
+            font-weight: 700;
+            font-size: 1.1em;
+            color: #2c3e50;
+        }
+
+        .publication-meta {
+            font-style: italic;
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+
+        .publication-summary {
+            font-size: 0.95em;
+            padding-left: 15px;
+            border-left: 3px solid #e0e0e0;
+            margin-top: 10px;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+
+        /* --- Download CV Button Styling --- */
+        .btn-download {
+            display: inline-block;
+            background-color: #3498db;
+            color: #ffffff;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.2s;
+            margin-top: 20px;
+        }
+
+        .btn-download:hover {
+            background-color: #2980b9;
+            text-decoration: none;
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
     </style>
 </head>
-<body class="bg-slate-50 text-slate-700">
+<body>
 
-    <!-- Header & Navigation -->
-    <header class="bg-slate-800 text-white sticky top-0 z-50 shadow-md">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <h1 class="text-xl font-bold">Can Çelebi</h1>
-            <nav class="hidden md:flex space-x-6">
-                <a href="#about" class="hover:text-sky-300 transition-colors">About</a>
-                <a href="#publications" class="hover:text-sky-300 transition-colors">Publications</a>
-                <a href="#talks" class="hover:text-sky-300 transition-colors">Talks</a>
-                <a href="#affiliations" class="hover:text-sky-300 transition-colors">Affiliations</a>
-                <a href="#cv" class="hover:text-sky-300 transition-colors">CV</a>
-                <a href="#contact" class="hover:text-sky-300 transition-colors">Contact</a>
-            </nav>
-            <button id="mobile-menu-button" class="md:hidden focus:outline-none">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                </svg>
-            </button>
-        </div>
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden px-6 pt-2 pb-4 space-y-2">
-            <a href="#about" class="block hover:text-sky-300 transition-colors">About</a>
-            <a href="#publications" class="block hover:text-sky-300 transition-colors">Publications</a>
-            <a href="#talks" class="block hover:text-sky-300 transition-colors">Talks</a>
-            <a href="#affiliations" class="block hover:text-sky-300 transition-colors">Affiliations</a>
-            <a href="#cv" class="block hover:text-sky-300 transition-colors">CV</a>
-            <a href="#contact" class="block hover:text-sky-300 transition-colors">Contact</a>
-        </div>
+    <header>
+        <!-- This empty header can be used for a top banner image if you decide to add one later -->
     </header>
 
-    <main class="container mx-auto px-6 py-12">
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#publications">Research</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="./files/cv.pdf" download="Can_Celebi_CV.pdf">CV</a></li>
+        </ul>
+    </nav>
 
-        <!-- About Section -->
-        <section id="about" class="mb-24">
-            <div class="flex flex-col md:flex-row items-center gap-12">
-                <div class="md:w-2/3">
-                    <h2 class="text-4xl font-bold text-slate-900 mb-4">Can Çelebi</h2>
-                    <p class="text-xl text-slate-600 mb-6">Postdoctoral Researcher at the Vienna Center for Experimental Economics (VCEE), University of Vienna</p>
-                    <div class="space-y-4 text-lg">
-                        <p>
-                            My research explores how AI can be integrated into economic research to study human behavior and decision-making. I focus on developing new AI-driven methods to analyze complex data and run more effective experiments, with a particular interest in human-AI collaboration, text analysis, and experimental design.
-                        </p>
-                    </div>
-                </div>
-                <div class="md:w-1/3 flex justify-center">
-                    <div class="w-64 h-64 rounded-full bg-slate-200 flex items-center justify-center shadow-lg">
-                        <!-- 
-                          PHOTO INSTRUCTION: 
-                          1. Upload your photo (with the transparent background) to the same folder as this HTML file.
-                          2. Rename your photo file to `profile-photo.png`.
-                          3. Uncomment the line below (remove <!-- and -->) and remove the placeholder `img` tag.
-                        -->
-                        <!-- <img src="profile-photo.png" alt="Can Çelebi" class="w-full h-full object-cover rounded-full"> -->
-                        
-                        <!-- Placeholder Image (Remove this after adding your own) -->
-                         <img src="https://placehold.co/400x400/E2E8F0/4A5568?text=Can+Celebi" alt="Can Çelebi" class="w-full h-full object-cover rounded-full">
-                    </div>
-                </div>
+    <div class="container">
+
+        <section id="home" class="hero">
+            <div class="hero-photo">
+                <!-- IMPORTANT: Make sure the path to your image is correct. -->
+                <!-- For GitHub Pages, if your index.html is in the root, and your image is in an 'img' folder, this path is correct. -->
+                <img src="./img/can2-removebg-preview.png" alt="Can Çelebi">
+            </div>
+            <div class="hero-text">
+                <h1>Can Çelebi</h1>
+                <p>Postdoctoral Researcher<br>Vienna Center for Experimental Economics (VCEE), University of Vienna</p>
             </div>
         </section>
 
-        <!-- Publications Section -->
-        <section id="publications" class="mb-24">
-            <h2 class="section-title">Publications & Working Papers</h2>
-            <div class="space-y-12">
-                <div>
-                    <h3 class="text-2xl font-semibold text-slate-800 mb-4">Peer-Reviewed Publications</h3>
-                    <ul class="space-y-6 list-disc list-inside">
-                        <li>
-                            <strong>Navigating AI Convergence in Human-Artificial Intelligence Teams: A Signaling Theory Approach.</strong><br>
-                            <span class="text-sm italic">Journal of Organizational Behavior</span>, 2025 (joint with Andria Smith, Huner Wagoner, Ksenia Keplinger).<br>
-                            <a href="https://doi.org/10.1002/job.2856" target="_blank" class="text-sky-600 hover:underline">📄 DOI Link</a>
-                        </li>
-                        <li>
-                            <strong>From Crypto to NFTs: Identifying the New Wave of Digital Investors.</strong><br>
-                            <span class="text-sm italic">International Review of Financial Analysis</span>, 2025 (joint with Stefano Balietti and David T. Lucas).<br>
-                             <a href="https://doi.org/10.1016/j.irfa.2024.104172" target="_blank" class="text-sky-600 hover:underline">📄 DOI Link</a>
-                        </li>
-                        <li>
-                            <strong>Team communication and individuals' reasoning and decisions.</strong><br>
-                            <span class="text-sm italic">Encyclopedia of Experimental Social Science</span>, Forthcoming 2025 (joint with Stefan P. Penczynski).
-                        </li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 class="text-2xl font-semibold text-slate-800 mb-4">Working Papers</h3>
-                    <ul class="space-y-6 list-disc list-inside">
-                        <li>
-                           <strong>Using Large Language Models for Text Classification in the Social Sciences.</strong> (joint with Stefan P. Penczynski).<br>
-                           <span class="text-sm text-slate-500">This paper establishes a methodology for using LLMs for text classification. Submitted.</span><br>
-                           <!-- <a href="#" class="text-sky-600 hover:underline">Link to PDF</a> -->
-                        </li>
-                        <li>
-                           <strong>Strategic Thinking in Jury Decisions: An Experimental Study.</strong> (joint with Stefan P. Penczynski).<br>
-                           <span class="text-sm text-slate-500">This paper investigates strategic reasoning and informs the development of chatbots for probing and reflective interaction. Under peer review.</span><br>
-                           <!-- <a href="#" class="text-sky-600 hover:underline">Link to PDF</a> -->
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Talks and Presentations Section -->
-        <section id="talks" class="mb-24">
-            <h2 class="section-title">Talks & Presentations</h2>
-            <div class="space-y-4">
-                <div class="p-4 bg-white rounded-lg shadow-sm">
-                    <p class="font-semibold text-slate-800">Presenter, "Using Large Language Models for Text Classification in Experimental Economics"</p>
-                    <p class="text-sm text-slate-600">Text as Data in Behavioral Economics Workshop, University of Potsdam, DE | June 2025</p>
-                </div>
-                <div class="p-4 bg-white rounded-lg shadow-sm">
-                    <p class="font-semibold text-slate-800">Keynote Speaker, "LLM Text Classification"</p>
-                    <p class="text-sm text-slate-600">School of Economics, University of East Anglia, UK | January 2025</p>
-                </div>
-                <div class="p-4 bg-white rounded-lg shadow-sm">
-                    <p class="font-semibold text-slate-800">Keynote Speaker, "Large Language Models: Prompting Techniques and Their Potential..."</p>
-                    <p class="text-sm text-slate-600">SKN HAI and HAI Laboratory, Poznan University of Economics and Business, PL | June 2024</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Affiliations Section -->
-        <section id="affiliations" class="mb-24">
-            <h2 class="section-title">Research Affiliations</h2>
-            <div class="project-card text-center">
-                 <h3 class="text-xl font-bold text-sky-700 mb-2">State of Crypto</h3>
-                 <p class="mb-4">An international research collaborative studying the digital economy and web3.</p>
-                 <a href="https://www.stateofcrypto.net/" target="_blank" class="text-sky-600 font-semibold hover:underline">Visit Website &rarr;</a>
-            </div>
-        </section>
-
-
-        <!-- CV Section -->
-        <section id="cv" class="mb-24 text-center">
-            <h2 class="section-title">Curriculum Vitae</h2>
-            <p class="mb-6 text-lg">For a detailed overview of my academic career, publications, and teaching experience, please download my full CV.</p>
-            <!-- 
-                CV INSTRUCTION:
-                1. Place your CV file (e.g., "CV.pdf") in the same folder as this HTML file.
-                2. Update the href attribute below to point to your file name.
-            -->
-            <a href="CV.pdf" download class="bg-sky-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-sky-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-                Download CV (PDF)
-            </a>
-        </section>
-
-    </main>
-    
-    <!-- Footer / Contact Section -->
-    <footer id="contact" class="bg-slate-800 text-white pt-12 pb-8">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="text-3xl font-bold mb-4">Get in Touch</h2>
-            <p class="mb-8 max-w-2xl mx-auto">
-                I'm always open to discussing research, exploring potential collaborations, or connecting with fellow academics. Feel free to reach out via email or connect with me on LinkedIn and GitHub.
+        <section id="about">
+            <h2>About Me</h2>
+            <p>
+                I am a postdoctoral researcher at the Vienna Center for Experimental Economics (VCEE), University of Vienna. My research is centered on developing and applying Large Language Models (LLMs) as methodological innovations in experimental and behavioral economics. I explore how these advanced AI tools can transform the way social scientists collect and analyze data, with a focus on capturing the nuances of human reasoning and decision-making.
             </p>
-            <div class="flex justify-center items-center space-x-6">
-                <!-- Email -->
-                <a href="mailto:cnelebi@gmail.com" class="flex items-center space-x-2 hover:text-sky-300 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                    <span>cnelebi@gmail.com</span>
-                </a>
-                
-                <!-- 
-                  LINKEDIN INSTRUCTION:
-                  Replace the # in href="#" with the full URL to your LinkedIn profile.
-                -->
-                <a href="#linkedin-url-placeholder" target="_blank" class="hover:text-sky-300 transition-colors" title="LinkedIn">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                </a>
-                
-                <!-- 
-                  GITHUB INSTRUCTION:
-                  Replace the # in href="#" with the full URL to your GitHub profile.
-                -->
-                <a href="#github-url-placeholder" target="_blank" class="hover:text-sky-300 transition-colors" title="GitHub">
-                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                </a>
+            <p>
+                My work proceeds along two primary tracks. The first focuses on <strong>text-as-data</strong>, 
+                where I develop rigorous methods for using LLMs to classify and quantify unstructured text from experimental settings.
+                 This research, which formed a core part of my doctoral dissertation at the University of Mannheim, 
+                 aims to establish new standards for replicability and reliability in automated text analysis.
+            </p>
+             <p>
+                The second track involves designing and deploying  <strong>LLM-powered chatbots as novel experimental tools</strong>. 
+                This extends beyond simple data collection to creating interactive agents that can engage with human subjects for various purposes, 
+                such as persuasion, eliciting strategic thought, probing personal narratives, and improving participant understanding 
+                of complex instructions. 
+            </p>
+            <p>
+                 I am also affiliated with the <a href="https://stateofcrypto.net/" target="_blank" rel="noopener noreferrer">State of Crypto</a> research initiative, exploring the societal impact of digital financial systems. Previously, I was a researcher at the Max Planck Institute for Intelligent Systems.
+            </p>
+        </section>
+        
+        <section id="publications">
+            <h2>Research</h2>
+            
+            <h3>Peer-Reviewed Publications</h3>
+
+            <div class="publication">
+                <p class="publication-title"> Navigating AI Convergence in Human-Artificial Intelligence Teams: A Signaling Theory Approach </p>
+                <p class="publication-meta"><em>Journal of Organizational Behavior</em>, 2025 (joint with Andria Smith, Hunter P. van Wagoner, and Ksenia Keplinger).</p>
+                <p class="publication-summary">
+                    Teams that combine human intelligence with artificial intelligence (AI) have become indispensable for solving complex tasks 
+                    in various decision-making contexts in modern organizations. However, the factors that contribute to AI convergence, where 
+                    human team members align their decisions with those of their AI counterparts, still remain unclear. This study integrates 
+                    signaling theory with self-determination theory to investigate how specific signals—such as signal fit, 
+                    optional AI advice, and signal set congruence—affect employees' AI convergence in human–AI teams. 
+                    Based on four experimental studies conducted in facial recognition and hiring contexts with approximately 
+                    1100 participants, the findings highlight the significant positive impact of congruent signals from both 
+                    human and AI team members on AI convergence. Moreover, providing an option for employees to solicit AI 
+                    advice also enhances AI convergence; when AI signals are chosen by employees rather than forced 
+                    upon them, participants are more likely to accept AI advice. This research advances knowledge on 
+                     human–AI teaming by (1) expanding signaling theory into the human–AI team context; (2) 
+                     developing a deeper understanding of AI convergence and its drivers in human–AI teams; 
+                     (3) providing actionable insights for designing teams and tasks to optimize decision-making in 
+                     high-stakes, uncertain environments; and (4) introducing facial recognition as an innovative context for human–AI teaming. 
+                </p>
+                <p><a href="https://doi.org/10.1002/job.2856" target="_blank" rel="noopener noreferrer">Link</a></p>
             </div>
-            <div class="mt-12 border-t border-slate-700 pt-6 text-sm text-slate-400">
-                <p>&copy; <span id="year"></span> Can Çelebi. All Rights Reserved.</p>
+            
+            <div class="publication">
+                <p class="publication-title">From Crypto to NFTs: Identifying the New Wave of Digital Investors</p>
+                <p class="publication-meta"><em>International Review of Financial Analysis</em>, 2025 (joint with Stefano Balietti and David Tercero-Lucas).</p>
+                 <p class="publication-summary">
+                    The objective of this paper is to explore whether NFT investors represent a distinct cohort within the broader 
+                    crypto investment sphere. Employing data from a public survey with global outreach, we first find that NFT 
+                    owners are younger and possess, on average, a lower educational level than the general crypto population 
+                    but a higher cryptocurrency knowledge. Second, there are no significant gender differences among NFT investors 
+                    and non-NFT investors, but those working in the crypto sphere are more likely to invest in NFTs. Additionally, 
+                    individuals involved in yield farming or using crypto derivatives are more likely to own NFTs. Finally, we 
+                    show that individuals with more concerns about the potential misuse of cryptocurrency for illicit activities are 
+                    less likely to engage in the ownership of NFTs. 
+                </p>
+                <p><a href="https://doi.org/10.1016/j.irfa.2025.104172" target="_blank" rel="noopener noreferrer">Link</a></p>
             </div>
-        </div>
-    </footer>
-    
-    <script>
-        // Mobile menu toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
+            
+            <div class="publication">
+                <p class="publication-title">Team communication and individuals' reasoning and decisions</p>
+                <p class="publication-meta"><em>Encyclopedia of Experimental Social Science</em>, Forthcoming 2025 (joint with Stefan P. Penczynski).</p>
+                <p class="publication-summary">
+                   This study explores how communication within teams shapes individual reasoning and decision-making in strategic environments. 
+                   We build on a structured intra-team communication protocol that allows for clean attribution of reasoning to 
+                   individual participants by capturing their initial suggestions, exchanged messages, and final decisions. 
+                   By analyzing this communication, we identify persuasion mechanisms and strategic thinking processes within teams. 
+                   The study also compares this method to alternatives like "thinking aloud" and advice-giving, 
+                   and highlights the advantages of using large language models for classifying participants' 
+                   reasoning. Our results show that LLMs such as GPT-4 can reliably replicate human annotation 
+                   for classifying levels of strategic sophistication, offering a scalable and 
+                   replicable tool for analyzing reasoning in behavioral experiments.
+                </p>
+            </div>
 
-        // Close mobile menu when a link is clicked
-        const mobileMenuLinks = document.querySelectorAll('#mobile-menu a, header nav a');
-        mobileMenuLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                if(link.parentNode.id === 'mobile-menu') {
-                    mobileMenu.classList.add('hidden');
-                }
-            });
-        });
+            <h3 style="margin-top: 40px;">Working Papers</h3>
 
+            <div class="publication">
+                <p class="publication-title">Using Large Language Models for Text Classification in the Social Sciences</p>
+                <p class="publication-meta">(joint with Stefan P. Penczynski). A shorter version is submitted at PNAS.</p>
+                <p class="publication-summary">
+                    This study examines the use of large language models (LLMs) for text classification. 
+                    We investigate whether original instructions can be effectively repurposed as prompts with 
+                    moderate changes to achieve classification results comparable to human-coded benchmarks. 
+                    Additionally, we study the impact of two prompting techniques - providing a set of n classified examples (n-shot) 
+                    and requiring a justification explanation (zero-shot Chain-of-Thought) - on classification performance. 
+                    Using GPT-3.5 and GPT-4, we further examine the extent to which larger model size improves classification accuracy. 
+                    To assess these factors, we classify text from four economic experiments, 
+                    covering tasks with varying complexity and prevalence in pre-training data, 
+                    providing insights into how task characteristics influence classification performance. 
+                    We find that LLMs can accurately and cost-effectively classify text across these tasks 
+                    and replicate human annotations well. Performance improves through n-shot prompting 
+                    and we observe task-dependent gains from Chain-of-Thought prompting. 
+                    Our findings offer guidance for integrating LLM-based text classification into social science research.
+                </p>
+                <p><a href="https://ueaeco.github.io/working-papers/papers/cbess/UEA-CBESS-24-01.pdf" target="_blank" rel="noopener noreferrer">Link</a></p>
+            </div>
+            
+            <div class="publication">
+                <p class="publication-title">Strategic Thinking in Jury Decisions: An Experimental Study</p>
+                <p class="publication-meta">(joint with Stefan P. Penczynski). Currently under peer review.</p>
+                <p class="publication-summary">
+                    Theoretical work by Feddersen and Pesendorfer (1998) has shown how strategic voting undermines the intuition that unanimous voting eliminates 
+                    convictions of innocent defendants. We set up a level-k model of jury voting and experimentally investigate strategic thinking with an experimental
+                    design that uses intra-team communication. Looking at juries using the unanimity rule, we show that the jury performance depends on the strategic 
+                    sophistication of jury members, which in turn depends on the complexity of the task at hand.
+                </p>
+                <p><a href="https://ueaeco.github.io/working-papers/papers/cbess/UEA-CBESS-23-01.pdf" target="_blank" rel="noopener noreferrer">Link</a></p>
+            </div>
+        </section>
 
-        // Set current year in footer
-        document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>
+                Dr. Can Çelebi<br>
+                Vienna Center for Experimental Economics (VCEE)<br>
+                University of Vienna<br>
+                Oskar-Morgenstern-Platz 1, 1090 Vienna, Austria<br>
+            </p>
+            <!-- IMPORTANT: Add the path to your CV PDF file here. -->
+            <!-- For GitHub Pages, if your index.html is in the root and your CV is in a 'files' folder, this path is correct. -->
+            <a href="./files/cv.pdf" class="btn-download" download="Can_Celebi_CV.pdf">Download CV</a>
+        </section>
+
+    </div>
+
 </body>
 </html>
