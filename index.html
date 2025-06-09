@@ -27,7 +27,7 @@
         header {
             background-color: #2c3e50;
             color: #ecf0f1;
-            padding: 1rem 0; /* Reduced padding slightly */
+            padding: 1rem 0;
             text-align: center;
         }
         
@@ -45,7 +45,7 @@
             padding: 0;
             display: flex;
             justify-content: center;
-            align-items: center; /* Vertically align items */
+            align-items: center;
         }
 
         nav ul li a {
@@ -62,23 +62,22 @@
             background-color: #46627f;
         }
 
-        /* CV Button Styling in Nav */
         .nav-cv-button {
             background-color: #3498db;
             border-radius: 5px;
             margin-left: 15px;
-            padding: 8px 15px !important; /* Overriding default padding */
-            line-height: 1.2; /* Adjust for vertical centering */
+            padding: 8px 15px !important;
+            line-height: 1.2;
         }
 
         .nav-cv-button:hover {
             background-color: #2980b9 !important;
         }
         
-        /* --- Hero Section (Name, Title, Photo) --- */
+        /* --- Hero Section --- */
         .hero {
             display: flex;
-            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            flex-wrap: wrap;
             align-items: center;
             justify-content: center;
             gap: 40px;
@@ -88,7 +87,7 @@
         }
 
         .hero-text {
-            text-align: center; /* Center text on smaller screens */
+            text-align: center;
         }
 
         @media (min-width: 600px) {
@@ -114,21 +113,19 @@
             width: 150px;
             height: 150px;
             border-radius: 50%;
-            background-color: #e0e0e0; /* Placeholder background */
+            background-color: #e0e0e0;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            flex-shrink: 0; /* Prevent image from shrinking */
+            flex-shrink: 0;
         }
         
         .hero-photo img {
              width: 100%;
              height: auto;
-             /* This will ensure your transparent PNG fits nicely */
         }
-
 
         /* --- General Section Styling --- */
         section {
@@ -148,42 +145,82 @@
             margin-bottom: 20px;
         }
         
-        h3 {
+        .research-heading {
             font-family: 'Lora', serif;
-            color: #34495e;
-            margin-top: 30px;
+            font-size: 1.4em;
+            color: #16a085;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 8px;
+            margin-top: 40px;
+            margin-bottom: 25px;
         }
 
-        /* --- Publications & Projects Styling --- */
-        .publication, .project {
-            margin-bottom: 25px;
+        /* --- Publication & Accordion Styling --- */
+        .publication {
+            margin-bottom: 15px;
             padding-bottom: 15px;
             border-bottom: 1px solid #eee;
         }
         
-        .publication:last-child, .project:last-child {
+        .publication:last-child {
             border-bottom: none;
         }
 
-        .publication-title, .project-title {
+        .publication-title {
             font-weight: 700;
             font-size: 1.1em;
             color: #2c3e50;
         }
-
+        
         .publication-meta {
             font-style: italic;
             color: #7f8c8d;
             font-size: 0.9em;
-            margin-bottom: 8px;
+            margin: 5px 0 10px 0;
         }
-
+        
         .publication-summary {
-            font-size: 0.95em;
+            font-size: 0.9em;
             padding-left: 15px;
             border-left: 3px solid #e0e0e0;
             margin-top: 10px;
+            margin-bottom: 0;
+            color: #4b4a4d;
+            font-style: normal;
         }
+
+        /* --- Accordion Specific Styles --- */
+        .accordion-trigger {
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: color 0.3s;
+        }
+        .accordion-trigger:hover .publication-title {
+             color: #3498db;
+        }
+
+        .accordion-arrow {
+            border: solid #34495e;
+            border-width: 0 2px 2px 0;
+            display: inline-block;
+            padding: 4px;
+            transform: rotate(45deg); /* Down arrow */
+            transition: transform 0.3s ease;
+            margin-left: 15px;
+        }
+
+        .accordion-trigger.active .accordion-arrow {
+            transform: rotate(-135deg); /* Up arrow */
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+        }
+
 
         a {
             color: #3498db;
@@ -196,7 +233,6 @@
             text-decoration: underline;
         }
 
-        /* --- Download CV Button Styling --- */
         .btn-download {
             display: inline-block;
             background-color: #3498db;
@@ -215,21 +251,23 @@
             color: #ffffff;
             transform: translateY(-2px);
         }
-
+        .jointWith {
+            color: #a062ef; /* A professional slate gray */
+            font-weight: 500;
+            font-style: normal;
+        }
     </style>
 </head>
 <body>
 
-    <header>
-        <!-- This empty header can be used for a top banner image if you decide to add one later -->
-    </header>
+    <header></header>
 
     <nav>
         <ul>
             <li><a href="#about">About</a></li>
             <li><a href="#publications">Research</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li><a href="https://can-celebi.github.io/CV.pdf" download="CV.pdf">CV</a></li>
+            <li><a href="https://can-celebi.github.io/CV.pdf" download="Can_Celebi_CV.pdf">CV</a></li>
         </ul>
     </nav>
 
@@ -237,8 +275,6 @@
 
         <section id="home" class="hero">
             <div class="hero-photo">
-                <!-- IMPORTANT: Make sure the path to your image is correct. -->
-                <!-- For GitHub Pages, if your index.html is in the root, and your image is in an 'img' folder, this path is correct. -->
                 <img src="https://can-celebi.github.io/can2-removebg-preview.png" alt="Can Çelebi">
             </div>
             <div class="hero-text">
@@ -249,118 +285,85 @@
 
         <section id="about">
             <h2>About Me</h2>
-            <p>
-                I am a postdoctoral researcher at the Vienna Center for Experimental Economics (VCEE), University of Vienna. My research is centered on developing and applying Large Language Models (LLMs) as methodological innovations in experimental and behavioral economics. I explore how these advanced AI tools can transform the way social scientists collect and analyze data, with a focus on capturing the nuances of human reasoning and decision-making.
-            </p>
-            <p>
-                My work proceeds along two primary tracks. The first focuses on <strong>text-as-data</strong>, 
-                where I develop rigorous methods for using LLMs to classify and quantify unstructured text from experimental settings.
-                 This research, which formed a core part of my doctoral dissertation at the University of Mannheim, 
-                 aims to establish new standards for replicability and reliability in automated text analysis.
-            </p>
-             <p>
-                The second track involves designing and deploying  <strong>LLM-powered chatbots as novel experimental tools</strong>. 
-                This extends beyond simple data collection to creating interactive agents that can engage with human subjects for various purposes, 
-                such as persuasion, eliciting strategic thought, probing personal narratives, and improving participant understanding 
-                of complex instructions. 
-            </p>
-            <p>
-                 I am also affiliated with the <a href="https://stateofcrypto.net/" target="_blank" rel="noopener noreferrer">State of Crypto</a> research initiative, exploring the societal impact of digital financial systems. Previously, I was a researcher at the Max Planck Institute for Intelligent Systems.
-            </p>
+            <p>I am a postdoctoral researcher at the Vienna Center for Experimental Economics (VCEE), University of Vienna. My research is centered on developing and applying Large Language Models (LLMs) as methodological innovations in experimental and behavioral economics. I explore how these advanced AI tools can transform the way social scientists collect and analyze data, with a focus on capturing the nuances of human reasoning and decision-making.</p>
+            <p>My work proceeds along two primary tracks. The first focuses on <strong>text-as-data</strong>, where I develop rigorous methods for using LLMs to classify and quantify unstructured text from experimental settings. This research, which formed a core part of my doctoral dissertation at the University of Mannheim, aims to establish new standards for replicability and reliability in automated text analysis.</p>
+            <p>The second track involves designing and deploying  <strong>LLM-powered chatbots as novel experimental tools</strong>. This extends beyond simple data collection to creating interactive agents that can engage with human subjects for various purposes, such as persuasion, eliciting strategic thought, probing personal narratives, and improving participant understanding of complex instructions.</p>
+            <p>I am also affiliated with the <a href="https://stateofcrypto.net/" target="_blank" rel="noopener noreferrer">State of Crypto</a> research initiative, exploring the societal impact of digital financial systems. Previously, I was a researcher at the Max Planck Institute for Intelligent Systems.</p>
         </section>
         
         <section id="publications">
             <h2>Research</h2>
             
-            <h3>Peer-Reviewed Publications</h3>
+            <h3 class="research-heading">Peer-Reviewed Publications</h3>
 
             <div class="publication">
-                <p class="publication-title"> Navigating AI Convergence in Human-Artificial Intelligence Teams: A Signaling Theory Approach </p>
-                <p class="publication-meta"><em>Journal of Organizational Behavior</em>, 2025 (joint with Andria Smith, Hunter P. van Wagoner, and Ksenia Keplinger).</p>
-                <p class="publication-summary">
-                    Teams that combine human intelligence with artificial intelligence (AI) have become indispensable for solving complex tasks 
-                    in various decision-making contexts in modern organizations. However, the factors that contribute to AI convergence, where 
-                    human team members align their decisions with those of their AI counterparts, still remain unclear. This study integrates 
-                    signaling theory with self-determination theory to investigate how specific signals—such as signal fit, 
-                    optional AI advice, and signal set congruence—affect employees' AI convergence in human–AI teams. 
-                    Based on four experimental studies conducted in facial recognition and hiring contexts with approximately 
-                    1100 participants, the findings highlight the significant positive impact of congruent signals from both 
-                    human and AI team members on AI convergence. Moreover, providing an option for employees to solicit AI 
-                    advice also enhances AI convergence; when AI signals are chosen by employees rather than forced 
-                    upon them, participants are more likely to accept AI advice. This research advances knowledge on 
-                     human–AI teaming by (1) expanding signaling theory into the human–AI team context; (2) 
-                     developing a deeper understanding of AI convergence and its drivers in human–AI teams; 
-                     (3) providing actionable insights for designing teams and tasks to optimize decision-making in 
-                     high-stakes, uncertain environments; and (4) introducing facial recognition as an innovative context for human–AI teaming. 
-                </p>
+                <div class="accordion-trigger">
+                    <p class="publication-title">Navigating AI Convergence in Human-Artificial Intelligence Teams: A Signaling Theory Approach</p>
+                    <span class="accordion-arrow"></span>
+                </div>
+                <p class="publication-meta"><em>Journal of Organizational Behavior</em>, 2025</p>
+                <div class="accordion-content">
+                     <p class="publication-meta jointWith"><em>joint with Andria Smith, Hunter P. van Wagoner, and Ksenia Keplinger</p>
+                    <p class="publication-summary">Teams that combine human intelligence with artificial intelligence (AI) have become indispensable for solving complex tasks in various decision-making contexts in modern organizations. However, the factors that contribute to AI convergence, where human team members align their decisions with those of their AI counterparts, still remain unclear. This study integrates signaling theory with self-determination theory to investigate how specific signals—such as signal fit, optional AI advice, and signal set congruence—affect employees' AI convergence in human–AI teams. Based on four experimental studies conducted in facial recognition and hiring contexts with approximately 1100 participants, the findings highlight the significant positive impact of congruent signals from both human and AI team members on AI convergence. Moreover, providing an option for employees to solicit AI advice also enhances AI convergence; when AI signals are chosen by employees rather than forced upon them, participants are more likely to accept AI advice. This research advances knowledge on human–AI teaming by (1) expanding signaling theory into the human–AI team context; (2) developing a deeper understanding of AI convergence and its drivers in human–AI teams; (3) providing actionable insights for designing teams and tasks to optimize decision-making in high-stakes, uncertain environments; and (4) introducing facial recognition as an innovative context for human–AI teaming.</p>
                 <p><a href="https://doi.org/10.1002/job.2856" target="_blank" rel="noopener noreferrer">Link</a></p>
+                    </div>
+                
             </div>
             
             <div class="publication">
-                <p class="publication-title">From Crypto to NFTs: Identifying the New Wave of Digital Investors</p>
-                <p class="publication-meta"><em>International Review of Financial Analysis</em>, 2025 (joint with Stefano Balietti and David Tercero-Lucas).</p>
-                 <p class="publication-summary">
-                    The objective of this paper is to explore whether NFT investors represent a distinct cohort within the broader 
-                    crypto investment sphere. Employing data from a public survey with global outreach, we first find that NFT 
-                    owners are younger and possess, on average, a lower educational level than the general crypto population 
-                    but a higher cryptocurrency knowledge. Second, there are no significant gender differences among NFT investors 
-                    and non-NFT investors, but those working in the crypto sphere are more likely to invest in NFTs. Additionally, 
-                    individuals involved in yield farming or using crypto derivatives are more likely to own NFTs. Finally, we 
-                    show that individuals with more concerns about the potential misuse of cryptocurrency for illicit activities are 
-                    less likely to engage in the ownership of NFTs. 
-                </p>
-                <p><a href="https://doi.org/10.1016/j.irfa.2025.104172" target="_blank" rel="noopener noreferrer">Link</a></p>
+                 <div class="accordion-trigger">
+                    <p class="publication-title">From Crypto to NFTs: Identifying the New Wave of Digital Investors</p>
+                    <span class="accordion-arrow"></span>
+                </div>
+                <p class="publication-meta"><em>International Review of Financial Analysis</em>, 2025</p>
+                <div class="accordion-content">
+                    <p class="publication-meta jointWith"><em>joint with Stefano Balietti and David Tercero-Lucas</p>
+                    <p class="publication-summary">The objective of this paper is to explore whether NFT investors represent a distinct cohort within the broader crypto investment sphere. Employing data from a public survey with global outreach, we first find that NFT owners are younger and possess, on average, a lower educational level than the general crypto population but a higher cryptocurrency knowledge. Second, there are no significant gender differences among NFT investors and non-NFT investors, but those working in the crypto sphere are more likely to invest in NFTs. Additionally, individuals involved in yield farming or using crypto derivatives are more likely to own NFTs. Finally, we show that individuals with more concerns about the potential misuse of cryptocurrency for illicit activities are less likely to engage in the ownership of NFTs.</p>
+                    <p><a href="https://doi.org/10.1016/j.irfa.2025.104172" target="_blank" rel="noopener noreferrer">Link</a></p>
+                </div>
+                
             </div>
             
             <div class="publication">
-                <p class="publication-title">Team communication and individuals' reasoning and decisions</p>
-                <p class="publication-meta"><em>Encyclopedia of Experimental Social Science</em>, Forthcoming 2025 (joint with Stefan P. Penczynski).</p>
-                <p class="publication-summary">
-                   This study explores how communication within teams shapes individual reasoning and decision-making in strategic environments. 
-                   We build on a structured intra-team communication protocol that allows for clean attribution of reasoning to 
-                   individual participants by capturing their initial suggestions, exchanged messages, and final decisions. 
-                   By analyzing this communication, we identify persuasion mechanisms and strategic thinking processes within teams. 
-                   The study also compares this method to alternatives like "thinking aloud" and advice-giving, 
-                   and highlights the advantages of using large language models for classifying participants' 
-                   reasoning. Our results show that LLMs such as GPT-4 can reliably replicate human annotation 
-                   for classifying levels of strategic sophistication, offering a scalable and 
-                   replicable tool for analyzing reasoning in behavioral experiments.
-                </p>
+                 <div class="accordion-trigger">
+                    <p class="publication-title">Team communication and individuals' reasoning and decisions</p>
+                    <span class="accordion-arrow"></span>
+                </div>
+                <p class="publication-meta"><em>Encyclopedia of Experimental Social Science</em>, 2025</p>
+                 <div class="accordion-content">
+                    <p class="publication-meta jointWith">joint with Stefan P. Penczynski</p>
+                    <p class="publication-summary">This study explores how communication within teams shapes individual reasoning and decision-making in strategic environments. We build on a structured intra-team communication protocol that allows for clean attribution of reasoning to individual participants by capturing their initial suggestions, exchanged messages, and final decisions. By analyzing this communication, we identify persuasion mechanisms and strategic thinking processes within teams. The study also compares this method to alternatives like "thinking aloud" and advice-giving, and highlights the advantages of using large language models for classifying participants' reasoning. Our results show that LLMs such as GPT-4 can reliably replicate human annotation for classifying levels of strategic sophistication, offering a scalable and replicable tool for analyzing reasoning in behavioral experiments.</p>
+                </div>
             </div>
 
-            <h3 style="margin-top: 40px;">Working Papers</h3>
+            <h3 class="research-heading">Working Papers</h3>
 
             <div class="publication">
-                <p class="publication-title">Using Large Language Models for Text Classification in the Social Sciences</p>
-                <p class="publication-meta">(joint with Stefan P. Penczynski). A shorter version is submitted at PNAS.</p>
-                <p class="publication-summary">
-                    This study examines the use of large language models (LLMs) for text classification. 
-                    We investigate whether original instructions can be effectively repurposed as prompts with 
-                    moderate changes to achieve classification results comparable to human-coded benchmarks. 
-                    Additionally, we study the impact of two prompting techniques - providing a set of n classified examples (n-shot) 
-                    and requiring a justification explanation (zero-shot Chain-of-Thought) - on classification performance. 
-                    Using GPT-3.5 and GPT-4, we further examine the extent to which larger model size improves classification accuracy. 
-                    To assess these factors, we classify text from four economic experiments, 
-                    covering tasks with varying complexity and prevalence in pre-training data, 
-                    providing insights into how task characteristics influence classification performance. 
-                    We find that LLMs can accurately and cost-effectively classify text across these tasks 
-                    and replicate human annotations well. Performance improves through n-shot prompting 
-                    and we observe task-dependent gains from Chain-of-Thought prompting. 
-                    Our findings offer guidance for integrating LLM-based text classification into social science research.
-                </p>
-                <p><a href="https://ueaeco.github.io/working-papers/papers/cbess/UEA-CBESS-24-01.pdf" target="_blank" rel="noopener noreferrer">Link</a></p>
+                <div class="accordion-trigger">
+                    <p class="publication-title">Using Large Language Models for Text Classification in the Social Sciences</p>
+                    <span class="accordion-arrow"></span>
+                </div>
+                
+                <div class="accordion-content">
+                    <p class="publication-meta jointWith">joint with Stefan P. Penczynski</p>
+                <p class="publication-summary">This study examines the use of large language models (LLMs) for text classification. We investigate whether original instructions can be effectively repurposed as prompts with moderate changes to achieve classification results comparable to human-coded benchmarks. Additionally, we study the impact of two prompting techniques—providing a set of n classified examples (n-shot) and requiring a justification explanation (zero-shot Chain-of-Thought)—on classification performance. Using GPT-3.5 and GPT-4, we further examine the extent to which larger model size improves classification accuracy. To assess these factors, we classify text from four economic experiments, covering tasks with varying complexity and prevalence in pre-training data, providing insights into how task characteristics influence classification performance. We find that LLMs can accurately and cost-effectively classify text across these tasks and replicate human annotations well. Performance improves through n-shot prompting and we observe task-dependent gains from Chain-of-Thought prompting. Our findings offer guidance for integrating LLM-based text classification into social science research.</p>
+                    <p><a href="https://ueaeco.github.io/working-papers/papers/cbess/UEA-CBESS-24-01.pdf" target="_blank" rel="noopener noreferrer">Link</a></p>
+            </div>
+                
             </div>
             
             <div class="publication">
-                <p class="publication-title">Strategic Thinking in Jury Decisions: An Experimental Study</p>
-                <p class="publication-meta">(joint with Stefan P. Penczynski). Currently under peer review.</p>
-                <p class="publication-summary">
-                    Theoretical work by Feddersen and Pesendorfer (1998) has shown how strategic voting undermines the intuition that unanimous voting eliminates 
-                    convictions of innocent defendants. We set up a level-k model of jury voting and experimentally investigate strategic thinking with an experimental
-                    design that uses intra-team communication. Looking at juries using the unanimity rule, we show that the jury performance depends on the strategic 
-                    sophistication of jury members, which in turn depends on the complexity of the task at hand.
-                </p>
-                <p><a href="https://ueaeco.github.io/working-papers/papers/cbess/UEA-CBESS-23-01.pdf" target="_blank" rel="noopener noreferrer">Link</a></p>
+                <div class="accordion-trigger">
+                    <p class="publication-title">Strategic Thinking in Jury Decisions: An Experimental Study</p>
+                    <span class="accordion-arrow"></span>
+                </div>
+                
+                <div class="accordion-content">
+                    <p class="publication-meta jointWith">joint with Stefan P. Penczynski</p>
+                    <p class="publication-summary">Theoretical work by Feddersen and Pesendorfer (1998) has shown how strategic voting undermines the intuition that unanimous voting eliminates convictions of innocent defendants. We set up a level-k model of jury voting and experimentally investigate strategic thinking with an experimental design that uses intra-team communication. Looking at juries using the unanimity rule, we show that the jury performance depends on the strategic sophistication of jury members, which in turn depends on the complexity of the task at hand.</p>
+                     <p><a href="https://ueaeco.github.io/working-papers/papers/cbess/UEA-CBESS-23-01.pdf" target="_blank" rel="noopener noreferrer">Link</a></p>
+                </div>
+               
             </div>
         </section>
 
@@ -372,12 +375,38 @@
                 University of Vienna<br>
                 Oskar-Morgenstern-Platz 1, 1090 Vienna, Austria<br>
             </p>
-            <!-- IMPORTANT: Add the path to your CV PDF file here. -->
-            <!-- For GitHub Pages, if your index.html is in the root and your CV is in a 'files' folder, this path is correct. -->
-            <a href="./files/cv.pdf" class="btn-download" download="Can_Celebi_CV.pdf">Download CV</a>
+            <!-- <a href="https://can-celebi.github.io/files/cv.pdf" class="btn-download" download="Can_Celebi_CV.pdf">Download CV</a> -->
         </section>
 
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Select all accordion trigger elements
+            const accordions = document.querySelectorAll('.accordion-trigger');
+
+            accordions.forEach(accordion => {
+                // Add a click event listener to each trigger
+                accordion.addEventListener('click', function() {
+                    // Toggle the 'active' class on the trigger element for styling (e.g., arrow rotation)
+                    this.classList.toggle('active');
+
+                    // Find the accordion content within the same publication block
+                    const content = this.parentElement.querySelector('.accordion-content');
+
+                    // Check if the content is currently open (maxHeight is set)
+                    if (content.style.maxHeight) {
+                        // If open, collapse it by setting maxHeight to null
+                        content.style.maxHeight = null;
+                    } else {
+                        // If closed, expand it by setting maxHeight to its scrollHeight
+                        // scrollHeight gives the actual height of the content
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    } 
+                });
+            });
+        });
+    </script>
 
 </body>
 </html>
