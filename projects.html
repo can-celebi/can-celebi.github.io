@@ -35,6 +35,22 @@
             color: #ecf0f1;
             padding: 1rem 0;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -260px;
+            width: 260px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, rgba(131, 72, 242, 0.85), transparent);
+            animation: header-sweep 9s linear infinite;
+        }
+        @keyframes header-sweep {
+            0% { left: -260px; }
+            100% { left: 100%; }
         }
 
         nav {
@@ -97,13 +113,56 @@
 
         .subsection-heading {
             font-size: 1.4em;
-            color: #8348f2ad;
             padding-bottom: 8px;
             margin-top: 30px;
             margin-bottom: 10px;
             font-style: normal;
             font-family: monospace;
             font-weight: 100;
+        }
+
+        .subsection-heading.sh-research {
+            color: #8348f2ad;
+        }
+
+        .subsection-heading.sh-personal {
+            color: #c97b63;
+            margin-top: 0;
+        }
+
+        /* Divider between the Research and Personal sections */
+        .section-divider {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 60px 0 28px 0;
+            color: #c97b63;
+            font-family: monospace;
+            font-size: 0.78em;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+        .section-divider::before,
+        .section-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(201, 123, 99, 0.35), transparent);
+        }
+        .section-divider .glyph {
+            font-size: 1.1em;
+            color: rgba(201, 123, 99, 0.7);
+        }
+
+        /* Personal cards get a warm-toned accent on hover instead of purple */
+        .sh-personal ~ .card-grid .project-card:hover {
+            border-color: #c97b63;
+        }
+        .sh-personal ~ .card-grid .project-card .card-meta {
+            color: #c97b63bb;
+        }
+        .sh-personal ~ .card-grid .project-card .card-cta {
+            color: #c97b63;
         }
 
         .back-link {
@@ -188,6 +247,28 @@
         .project-card.coming-soon .card-cta {
             color: #95a5a6;
         }
+
+        /* Fractal tree divider (between Research and Personal) */
+        .fractal-divider {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 50px 0 18px 0;
+            gap: 14px;
+        }
+        .fractal-divider::before,
+        .fractal-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(131, 72, 242, 0.28), transparent);
+        }
+        #fractal-tree-canvas {
+            width: 110px;
+            height: 84px;
+            opacity: 0.75;
+            flex-shrink: 0;
+        }
     </style>
 </head>
 <body>
@@ -210,7 +291,7 @@
         <section>
             <h1>Projects</h1>
 
-            <h3 class="subsection-heading">Research</h3>
+            <h3 class="subsection-heading sh-research">Research</h3>
             <div class="card-grid">
 
                 <div class="project-card coming-soon">
@@ -236,7 +317,10 @@
 
             </div>
 
-            <h3 class="subsection-heading">Personal</h3>
+            <div class="fractal-divider" aria-hidden="true">
+                <canvas id="fractal-tree-canvas" width="260" height="200"></canvas>
+            </div>
+            <h3 class="subsection-heading sh-personal">Personal</h3>
             <div class="card-grid">
 
                 <a class="project-card" href="https://can-celebi.github.io/hidirellez/" target="_blank" rel="noopener noreferrer">
@@ -252,6 +336,74 @@
         </section>
 
     </div>
+
+    <script src="bg-particles.js" defer></script>
+
+    <script>
+    (function () {
+        const MAX_DEPTH = 8;
+        const STEP_MS = 380;
+        const HOLD_MS = 1600;
+        const REST_MS = 700;
+        const STEPS = MAX_DEPTH + 1;
+        const TOTAL_MS = 2 * STEPS * STEP_MS + HOLD_MS + REST_MS;
+
+        function start() {
+            const canvas = document.getElementById('fractal-tree-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const W = canvas.width, H = canvas.height;
+            let cycleStart = performance.now();
+
+            function drawTreeAtDepth(maxDepth) {
+                ctx.strokeStyle = 'rgba(131, 72, 242, 0.75)';
+                function branch(x, y, length, angle, depth) {
+                    if (depth > maxDepth || length < 1) return;
+                    const x2 = x + length * Math.cos(angle);
+                    const y2 = y + length * Math.sin(angle);
+                    ctx.lineWidth = Math.max(0.6, (maxDepth - depth) * 0.35 + 0.6);
+                    ctx.beginPath();
+                    ctx.moveTo(x, y);
+                    ctx.lineTo(x2, y2);
+                    ctx.stroke();
+                    branch(x2, y2, length * 0.72, angle - 0.42, depth + 1);
+                    branch(x2, y2, length * 0.72, angle + 0.42, depth + 1);
+                }
+                const trunkLength = H * 0.28;
+                branch(W / 2, H - 4, trunkLength, -Math.PI / 2, 0);
+            }
+
+            function loop(now) {
+                const elapsed = (now - cycleStart) % TOTAL_MS;
+                ctx.clearRect(0, 0, W, H);
+                const buildEnd = STEPS * STEP_MS;
+                const holdEnd = buildEnd + HOLD_MS;
+                const unbuildEnd = holdEnd + STEPS * STEP_MS;
+
+                if (elapsed < buildEnd) {
+                    drawTreeAtDepth(Math.min(MAX_DEPTH, Math.floor(elapsed / STEP_MS)));
+                } else if (elapsed < holdEnd) {
+                    drawTreeAtDepth(MAX_DEPTH);
+                } else if (elapsed < unbuildEnd) {
+                    const t = (elapsed - holdEnd) / STEP_MS;
+                    drawTreeAtDepth(Math.max(0, MAX_DEPTH - Math.floor(t)));
+                } else {
+                    drawTreeAtDepth(0);
+                }
+
+                requestAnimationFrame(loop);
+            }
+
+            requestAnimationFrame(loop);
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', start);
+        } else {
+            start();
+        }
+    })();
+    </script>
 
 </body>
 </html>

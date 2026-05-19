@@ -35,6 +35,22 @@
             color: #ecf0f1;
             padding: 1rem 0;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -260px;
+            width: 260px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, rgba(131, 72, 242, 0.85), transparent);
+            animation: header-sweep 9s linear infinite;
+        }
+        @keyframes header-sweep {
+            0% { left: -260px; }
+            100% { left: 100%; }
         }
 
         nav {
@@ -170,6 +186,23 @@
             font-size: 0.9em;
             color: #3498db;
         }
+
+        /* Heading anchor with inline Sierpinski */
+        .heading-with-fractal {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 18px;
+        }
+        .heading-with-fractal h1 {
+            margin: 0;
+        }
+        #sierpinski-canvas {
+            width: 60px;
+            height: 52px;
+            opacity: 0.75;
+            flex-shrink: 0;
+        }
     </style>
 </head>
 <body>
@@ -190,7 +223,10 @@
     <div class="container">
 
         <section>
-            <h1>Teaching</h1>
+            <div class="heading-with-fractal">
+                <canvas id="sierpinski-canvas" width="176" height="152" aria-hidden="true"></canvas>
+                <h1>Teaching</h1>
+            </div>
 
             <div class="card-grid">
 
@@ -207,6 +243,78 @@
         </section>
 
     </div>
+
+    <script src="bg-particles.js" defer></script>
+
+    <script>
+    (function () {
+        const MAX_DEPTH = 5;
+        const STEP_MS = 700;     // ms per depth level (build and unbuild)
+        const HOLD_MS = 1600;    // hold at full depth
+        const REST_MS = 700;     // hold at depth 0 before rebuilding
+        const STEPS = MAX_DEPTH + 1; // depths 0..MAX_DEPTH
+        const TOTAL_MS = 2 * STEPS * STEP_MS + HOLD_MS + REST_MS;
+
+        function start() {
+            const canvas = document.getElementById('sierpinski-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const W = canvas.width, H = canvas.height;
+            let cycleStart = performance.now();
+
+            function drawAtDepth(maxDepth, alpha) {
+                ctx.fillStyle = 'rgba(131, 72, 242, ' + (0.7 * alpha) + ')';
+                function s(x1, y1, x2, y2, x3, y3, depth) {
+                    if (depth === 0) {
+                        ctx.beginPath();
+                        ctx.moveTo(x1, y1);
+                        ctx.lineTo(x2, y2);
+                        ctx.lineTo(x3, y3);
+                        ctx.closePath();
+                        ctx.fill();
+                        return;
+                    }
+                    const m12x = (x1 + x2) / 2, m12y = (y1 + y2) / 2;
+                    const m13x = (x1 + x3) / 2, m13y = (y1 + y3) / 2;
+                    const m23x = (x2 + x3) / 2, m23y = (y2 + y3) / 2;
+                    s(x1, y1, m12x, m12y, m13x, m13y, depth - 1);
+                    s(m12x, m12y, x2, y2, m23x, m23y, depth - 1);
+                    s(m13x, m13y, m23x, m23y, x3, y3, depth - 1);
+                }
+                s(W / 2, 6, 6, H - 6, W - 6, H - 6, maxDepth);
+            }
+
+            function loop(now) {
+                const elapsed = (now - cycleStart) % TOTAL_MS;
+                ctx.clearRect(0, 0, W, H);
+                const buildEnd = STEPS * STEP_MS;
+                const holdEnd = buildEnd + HOLD_MS;
+                const unbuildEnd = holdEnd + STEPS * STEP_MS;
+
+                if (elapsed < buildEnd) {
+                    drawAtDepth(Math.min(MAX_DEPTH, Math.floor(elapsed / STEP_MS)), 1);
+                } else if (elapsed < holdEnd) {
+                    drawAtDepth(MAX_DEPTH, 1);
+                } else if (elapsed < unbuildEnd) {
+                    const t = (elapsed - holdEnd) / STEP_MS;
+                    drawAtDepth(Math.max(0, MAX_DEPTH - Math.floor(t)), 1);
+                } else {
+                    drawAtDepth(0, 1);
+                }
+
+                requestAnimationFrame(loop);
+            }
+
+            requestAnimationFrame(loop);
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', start);
+        } else {
+            start();
+        }
+    })();
+    </script>
 
 </body>
 </html>

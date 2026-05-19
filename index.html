@@ -78,6 +78,22 @@
             color: #ecf0f1;
             padding: 1rem 0;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -260px;
+            width: 260px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, rgba(131, 72, 242, 0.85), transparent);
+            animation: header-sweep 9s linear infinite;
+        }
+        @keyframes header-sweep {
+            0% { left: -260px; }
+            100% { left: 100%; }
         }
         
         nav {
@@ -131,8 +147,16 @@
             justify-content: center;
             gap: 40px;
             padding: 40px 20px;
+            position: relative;
+            overflow: hidden;
             /* background: #ffffff; */
             /* border-bottom: 1px solid #e0e0e0; */
+        }
+
+        .hero > .hero-photo,
+        .hero > .hero-text {
+            position: relative;
+            z-index: 1;
         }
 
         .hero-text {
@@ -158,6 +182,16 @@
             color: #555;
         }
 
+        .hero-portrait {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
+
         .hero-photo {
             width: 150px;
             height: 150px;
@@ -168,12 +202,73 @@
             justify-content: center;
             overflow: hidden;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            flex-shrink: 0;
         }
-        
+
         .hero-photo img {
              width: 100%;
              height: auto;
+        }
+
+        .hero-icons {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            margin-top: 4px;
+        }
+
+        .hero-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            color: #7f8a96;
+            font-size: inherit;
+            font-family: inherit;
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        .hero-icons a:hover {
+            color: #8348f2;
+            transform: translateY(-1px);
+            text-decoration: none;
+        }
+
+        .hero-subtitle {
+            position: relative;
+            display: inline-block;
+            margin: 0;
+        }
+        .hero-subtitle .ghost {
+            visibility: hidden;
+        }
+        .hero-subtitle .typed {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+
+        .hero-icons svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+        }
+
+        .title-block {
+            position: relative;
+        }
+        .title-block .phd-ticker {
+            position: absolute;
+            top: calc(100% - 22px);
+            left: 0;
+            margin: 0;
+            padding: 0;
+            font-size: 0.85em;
+            font-family: monospace;
+            color: #95a5a6;
+            letter-spacing: 0.02em;
+            line-height: 1;
         }
 
         /* --- General Section Styling --- */
@@ -195,17 +290,97 @@
         }
         
         .research-heading {
-            /* font-family: 'Lora', serif; */
             font-size: 1.4em;
-            /* color: #48bcf2; */
             color: #8348f2ad;
-            /* border-bottom: 1px solid #e0e0e0; */
             padding-bottom: 8px;
             margin-top: 30px;
             margin-bottom: 10px;
             font-style: normal;
             font-family: monospace;
             font-weight: 100;
+        }
+
+        /* Card idle shimmer */
+        .publication {
+            position: relative;
+            overflow: hidden;
+            padding-right: 6px;
+        }
+        .publication > * {
+            position: relative;
+            z-index: 1;
+        }
+        .publication::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(105deg, transparent 30%, rgba(131, 72, 242, 0.09) 50%, transparent 70%);
+            transform: translateX(-110%);
+            pointer-events: none;
+            z-index: 0;
+            animation: card-shimmer 32s ease-in-out infinite;
+        }
+        .publication.pub-pub::after {
+            background: linear-gradient(105deg, transparent 30%, rgba(52, 152, 219, 0.09) 50%, transparent 70%);
+        }
+        .publication.pub-wip::after {
+            background: linear-gradient(105deg, transparent 30%, rgba(149, 165, 166, 0.08) 50%, transparent 70%);
+        }
+        .publication:nth-of-type(2)::after { animation-delay: 4s; }
+        .publication:nth-of-type(3)::after { animation-delay: 9s; }
+        .publication:nth-of-type(4)::after { animation-delay: 14s; }
+        .publication:nth-of-type(5)::after { animation-delay: 19s; }
+        .publication:nth-of-type(6)::after { animation-delay: 24s; }
+
+        @keyframes card-shimmer {
+            0%, 94% { transform: translateX(-110%); }
+            100% { transform: translateX(160%); }
+        }
+
+
+        /* Working Papers: purple (active line of work) */
+        .research-heading.rh-wp {
+            color: #8348f2ad;
+        }
+
+        /* Publications: blue (settled) — extra top space to separate from working papers */
+        .research-heading.rh-pub {
+            color: #3498dbc7;
+            margin-top: 70px;
+        }
+
+        /* Work in Progress: muted gray, smaller, lower salience */
+        .research-heading.rh-wip {
+            color: #95a5a6;
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-top: 70px;
+        }
+
+        /* Lower salience for the WIP entries */
+        .research-heading.rh-wip ~ .publication .publication-title {
+            font-size: 0.9em;
+            color: #6c7480;
+            font-weight: 500;
+        }
+        .research-heading.rh-wip ~ .publication {
+            padding-bottom: 8px;
+            margin-bottom: 8px;
+            opacity: 0.82;
+        }
+        .research-heading.rh-wip ~ .publication .accordion-arrow {
+            display: none;
+        }
+        .research-heading.rh-wip ~ .publication .accordion-trigger {
+            cursor: default;
+        }
+        .research-heading.rh-wip ~ .publication .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.25s ease-out;
+        }
+        .research-heading.rh-wip ~ .publication:hover .accordion-content {
+            max-height: 60px;
         }
 
         /* --- Publication & Accordion Styling --- */
@@ -347,19 +522,30 @@
     <div class="container">
 
         <section id="home" class="hero">
-            <div class="hero-photo">
-                <img src="https://can-celebi.github.io/can2-removebg-preview.png" alt="Can Çelebi">
+            <div class="hero-portrait">
+                <div class="hero-photo">
+                    <img src="https://can-celebi.github.io/can2-removebg-preview.png" alt="Can Çelebi">
+                </div>
+                <div class="hero-icons">
+                    <a href="https://scholar.google.com/citations?user=qHagUtsAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer" aria-label="Google Scholar" title="Google Scholar">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.749-6.758 4.269zM12 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"/></svg>
+                    </a>
+                    <a href="https://github.com/can-celebi" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                    </a>
+                </div>
             </div>
 <div class="hero-text">
     <h1>Can Çelebi</h1>
-    <p>Postdoctoral Researcher in Experimental & Behavioral Economics</p>
+    <p class="hero-subtitle">
+        <span class="ghost" aria-hidden="true">Postdoctoral Researcher in Experimental &amp; Behavioral Economics</span>
+        <span class="typed" id="hero-typewriter"></span>
+    </p>
     <p style="font-size: 0.89em;
        font-family: monospace;
        margin-top: 18px;
        color: #33a7d5;">
-       <a href="https://vcee.univie.ac.at/">
-           VIENNA CENTER FOR EXPERIMENTAL ECONOMICS, UNIVERSITY OF VIENNA
-       </a>
+       <a href="https://vcee.univie.ac.at/">VIENNA CENTER FOR EXPERIMENTAL ECONOMICS, UNIVERSITY OF VIENNA</a>
     </p>
 </div>
 
@@ -382,9 +568,14 @@
         </section>
         
         <section id="publications">
-            <h2>Research</h2>
-            
-            <h3 class="research-heading">Working Papers</h3>
+            <div class="title-block">
+                <h2>Research</h2>
+                <p class="phd-ticker" title="Time since PhD Diploma received">
+                    <span id="phd-counter">—</span>
+                </p>
+            </div>
+
+            <h3 class="research-heading rh-wp">Working Papers</h3>
 
             <div class="publication">
                 <div class="accordion-trigger">
@@ -410,7 +601,7 @@
 
                 <div class="accordion-content">
                     <p class="publication-meta jointWith">joint with Stefan P. Penczynski</p>
-                <p class="publication-summary">This study examines the use of large language models (LLMs) for text classification. We investigate whether original instructions can be effectively repurposed as prompts with moderate changes to achieve classification results comparable to human-coded benchmarks. Additionally, we study the impact of two prompting techniques—providing a set of n classified examples (n-shot) and requiring a justification explanation (zero-shot Chain-of-Thought)—on classification performance. Using GPT-3.5 and GPT-4, we further examine the extent to which larger model size improves classification accuracy. To assess these factors, we classify text from four economic experiments, covering tasks with varying complexity and prevalence in pre-training data, providing insights into how task characteristics influence classification performance. We find that LLMs can accurately and cost-effectively classify text across these tasks and replicate human annotations well. Performance improves through n-shot prompting and we observe task-dependent gains from Chain-of-Thought prompting. Our findings offer guidance for integrating LLM-based text classification into social science research.</p>
+                <p class="publication-summary">Researchers who classify text with LLMs often possess codebooks written for human annotators. We ask how these codebooks can serve as prompts. Using three codebooks from experimental economics (one on promise classification, two on strategic thinking), we vary the level of information in the prompt, along with surface variation such as formatting, framing, and wording, across two proprietary (GPT 5.4, GPT 5.4-nano) and two open-weight (Qwen 3.5 397B, Qwen 3.5 9B) models. Used as prompts, the codebooks reach 82–88% agreement with humans across the three tasks. On the recognition-heavy task (promises), model choice accounts for most of the variation in accuracy; on the learning-heavy tasks (strategic thinking), classification instructions carry comparable weight. We find that larger models make better use of additional information and are more robust to surface variation; while smaller models can be hurt by extra information and show some surface sensitivity without consistent direction. Codebook components and worked examples act as partial substitutes for one another, while model reasoning is neither a substitute for missing detail nor a complement once detail is provided. For researchers with an existing codebook, effort is better spent on the level of information in the prompt than on surface variations.</p>
                     <p style="text-align:right;"><a href="https://can-celebi.github.io/llmClassification.pdf" target="_blank" rel="noopener noreferrer">Paper</a> &nbsp;|&nbsp; <a href="https://can-celebi.github.io/prompting/" target="_blank" rel="noopener noreferrer">Companion</a></p>
             </div>
                 
@@ -446,9 +637,9 @@
 
             </div>
 
-            <h3 class="research-heading">Publications</h3>
+            <h3 class="research-heading rh-pub">Publications</h3>
 
-            <div class="publication">
+            <div class="publication pub-pub">
                 <div class="accordion-trigger">
                     <p class="publication-title">Navigating AI Convergence in Human-Artificial Intelligence Teams: A Signaling Theory Approach</p>
                     <span class="accordion-arrow"></span>
@@ -462,7 +653,7 @@
 
             </div>
 
-            <div class="publication">
+            <div class="publication pub-pub">
                  <div class="accordion-trigger">
                     <p class="publication-title">From Crypto to NFTs: Identifying the New Wave of Digital Investors</p>
                     <span class="accordion-arrow"></span>
@@ -476,7 +667,7 @@
 
             </div>
 
-            <div class="publication">
+            <div class="publication pub-pub">
                  <div class="accordion-trigger">
                     <p class="publication-title">Team communication and individuals' reasoning and decisions</p>
                     <span class="accordion-arrow"></span>
@@ -488,9 +679,9 @@
                 </div>
             </div>
 
-            <h3 class="research-heading">Work in Progress</h3>
+            <h3 class="research-heading rh-wip">Work in Progress</h3>
 
-            <div class="publication">
+            <div class="publication pub-wip">
                 <div class="accordion-trigger">
                     <p class="publication-title">Beyond Accuracy: Stability Metrics for Large Language Model Classifiers</p>
                     <span class="accordion-arrow"></span>
@@ -500,7 +691,7 @@
                 </div>
             </div>
 
-<div class="publication">
+<div class="publication pub-wip">
                 <div class="accordion-trigger">
                     <p class="publication-title">Expert, crowd and machine: comparing LLM and human classification distributions of strategic thinking</p>
                     <span class="accordion-arrow"></span>
@@ -510,7 +701,7 @@
                 </div>
             </div>
 
-            <div class="publication">
+            <div class="publication pub-wip">
                 <div class="accordion-trigger">
                     <p class="publication-title">Clarifying Without Bias: Chatbots as Research-Assistants in Online and Lab Experiments</p>
                     <span class="accordion-arrow"></span>
@@ -520,7 +711,7 @@
                 </div>
             </div>
 
-            <div class="publication">
+            <div class="publication pub-wip">
                 <div class="accordion-trigger">
                     <p class="publication-title">Regret in the Loop: Large Language Models as Risk Nudges in Investment Tasks</p>
                     <span class="accordion-arrow"></span>
@@ -530,7 +721,7 @@
                 </div>
             </div>
 
-            <div class="publication">
+            <div class="publication pub-wip">
                 <div class="accordion-trigger">
                     <p class="publication-title">Cross-Country Evidence on Information Evaluation Competence: Chatbot vs Video Intervention</p>
                     <span class="accordion-arrow"></span>
@@ -560,6 +751,8 @@
         </section>
 
     </div>
+
+    <script src="bg-particles.js" defer></script>
 
     <!-- <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -591,10 +784,83 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // ===== Accordion logic (unchanged) =====
+        // ===== Live ticker: time since PhD diploma =====
+        const phdCounter = document.getElementById('phd-counter');
+        if (phdCounter) {
+            const phdDate = new Date(2024, 8, 17, 0, 0, 0); // 17 September 2024, 00:00 local
+
+            function timeSince(start, now) {
+                let years = now.getFullYear() - start.getFullYear();
+                let months = now.getMonth() - start.getMonth();
+                let days = now.getDate() - start.getDate();
+                let hours = now.getHours() - start.getHours();
+                let minutes = now.getMinutes() - start.getMinutes();
+                let seconds = now.getSeconds() - start.getSeconds();
+
+                if (seconds < 0) { seconds += 60; minutes--; }
+                if (minutes < 0) { minutes += 60; hours--; }
+                if (hours < 0) { hours += 24; days--; }
+                if (days < 0) {
+                    const prev = new Date(now.getFullYear(), now.getMonth(), 0);
+                    days += prev.getDate();
+                    months--;
+                }
+                if (months < 0) { months += 12; years--; }
+                return { years, months, days, hours, minutes, seconds };
+            }
+
+            function tick() {
+                const t = timeSince(phdDate, new Date());
+                const totalMonths = t.years * 12 + t.months;
+                const pad = (n) => String(n).padStart(2, '0');
+                phdCounter.textContent =
+                    `${totalMonths}mo ${pad(t.days)}d ${pad(t.hours)}h ${pad(t.minutes)}m ${pad(t.seconds)}s`;
+            }
+
+            tick();
+            setInterval(tick, 1000);
+        }
+
+        // ===== Typewriter on the hero subtitle (one-shot, no layout shift) =====
+        const typedEl = document.getElementById('hero-typewriter');
+        const ghostEl = document.querySelector('.hero-subtitle .ghost');
+        if (typedEl && ghostEl) {
+            const fullText = ghostEl.textContent;
+            let i = 0;
+            function typeNext() {
+                if (i <= fullText.length) {
+                    typedEl.textContent = fullText.slice(0, i);
+                    i++;
+                    setTimeout(typeNext, 32);
+                }
+            }
+            typeNext();
+        }
+
+        // ===== Parallax on the hero photo (subtle) =====
+        const heroPhoto = document.querySelector('.hero-photo');
+        if (heroPhoto) {
+            window.addEventListener('scroll', () => {
+                const y = window.scrollY;
+                heroPhoto.style.transform = `translateY(${-y * 0.12}px)`;
+            }, { passive: true });
+        }
+
+
+        // ===== Accordion logic (skip Work in Progress entries; those use hover-only) =====
+        const wipHeading = document.querySelector('.research-heading.rh-wip');
         const accordions = document.querySelectorAll('.accordion-trigger');
 
+        function isInsideWip(el) {
+            if (!wipHeading) return false;
+            const pub = el.closest('.publication');
+            if (!pub) return false;
+            const pos = wipHeading.compareDocumentPosition(pub);
+            return !!(pos & Node.DOCUMENT_POSITION_FOLLOWING);
+        }
+
         accordions.forEach(accordion => {
+            if (isInsideWip(accordion)) return; // hover-only for WIP entries
             accordion.addEventListener('click', function() {
                 this.classList.toggle('active');
                 const content = this.parentElement.querySelector('.accordion-content');
