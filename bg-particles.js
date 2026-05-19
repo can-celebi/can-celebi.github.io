@@ -28,6 +28,17 @@
         const ctx = canvas.getContext('2d');
         let W = 0, H = 0, DPR = 1;
         const particles = [];
+        let mouseX = -10000, mouseY = -10000;
+        const REPEL_R = 130;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+        window.addEventListener('mouseleave', () => {
+            mouseX = -10000;
+            mouseY = -10000;
+        });
 
         function resize() {
             DPR = window.devicePixelRatio || 1;
@@ -60,8 +71,27 @@
             ctx.clearRect(0, 0, W, H);
 
             for (const p of particles) {
+                // cursor repulsion
+                const dx = p.x - mouseX;
+                const dy = p.y - mouseY;
+                const d2 = dx * dx + dy * dy;
+                if (d2 < REPEL_R * REPEL_R && d2 > 0.1) {
+                    const d = Math.sqrt(d2);
+                    const force = (REPEL_R - d) / REPEL_R * 0.17;
+                    p.vx += (dx / d) * force;
+                    p.vy += (dy / d) * force;
+                }
                 p.x += p.vx;
                 p.y += p.vy;
+                // gentle damping
+                p.vx *= 0.985;
+                p.vy *= 0.985;
+                // re-energise if too slow so they don't all settle
+                const sp = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+                if (sp < 0.08) {
+                    p.vx += (Math.random() - 0.5) * 0.06;
+                    p.vy += (Math.random() - 0.5) * 0.06;
+                }
                 if (p.x < -10) p.x = W + 10;
                 if (p.x > W + 10) p.x = -10;
                 if (p.y < -10) p.y = H + 10;

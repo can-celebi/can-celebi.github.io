@@ -81,18 +81,37 @@
             position: relative;
             overflow: hidden;
         }
+        header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right,
+                #2c3e50 0%,
+                transparent 35%,
+                transparent 65%,
+                #2c3e50 100%);
+            pointer-events: none;
+            z-index: 2;
+        }
         header::after {
             content: '';
             position: absolute;
             bottom: 0;
-            left: -260px;
-            width: 260px;
+            left: -320px;
+            width: 320px;
             height: 2px;
-            background: linear-gradient(to right, transparent, rgba(131, 72, 242, 0.85), transparent);
-            animation: header-sweep 9s linear infinite;
+            background: linear-gradient(to right,
+                transparent 0%,
+                rgba(131, 72, 242, 0.10) 30%,
+                rgba(131, 72, 242, 1.0) 50%,
+                rgba(131, 72, 242, 0.10) 70%,
+                transparent 100%);
+            z-index: 1;
+            animation: header-sweep 40s linear infinite;
         }
         @keyframes header-sweep {
-            0% { left: -260px; }
+            0% { left: -320px; }
+            25% { left: 100%; }
             100% { left: 100%; }
         }
         
@@ -254,6 +273,7 @@
             height: 22px;
             fill: currentColor;
         }
+
 
         .title-block {
             position: relative;
