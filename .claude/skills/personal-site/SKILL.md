@@ -22,6 +22,11 @@ Economics). Three hand-written HTML pages, no build step.
 - **Ask before inventing bibliographic facts.** Journal names, dates, volume
   numbers, and co-author lists are part of an academic record. Look them up
   (see *Getting publication dates*) or ask — never guess a plausible-looking month.
+- **New information goes into existing lines, not new ones.** The author's
+  strong preference is that the research list stays visually dense — one title
+  line, one meta line, and whatever is hidden in the accordion. When something
+  extra needs showing, fold it into a line that is already there and reveal it
+  with motion (see *The month*). Adding a row is the wrong instinct here.
 - **Duplicated CSS.** `index.html`, `projects.html`, and `teaching.html` each
   carry their own copy of the shared styles (header, nav, cards, fractal divider,
   mobile media queries). A visual change meant to be site-wide must be applied to
@@ -80,10 +85,9 @@ Working paper or publication (Work in Progress omits `publication-meta`,
         <p class="publication-title">Title of the Paper</p>
         <span class="accordion-arrow"></span>
     </div>
-    <p class="publication-meta"><em>Journal Name</em>, 2025</p>
+    <p class="publication-meta"><em>Journal Name</em>, <span class="pub-month" data-month="January"></span>2025</p>
 
     <div class="accordion-content">
-        <p class="publication-date">Published online 17 January 2025</p>
         <p class="publication-meta jointWith">joint with Co Author, Another Author</p>
         <p class="publication-summary">Abstract…</p>
         <p style="text-align:right;"><a href="URL" target="_blank" rel="noopener noreferrer">Paper</a> &nbsp;|&nbsp; <a href="URL" target="_blank" rel="noopener noreferrer">Companion</a></p>
@@ -91,7 +95,7 @@ Working paper or publication (Work in Progress omits `publication-meta`,
 </div>
 ```
 
-Inside `accordion-content` the order is: date → coauthors → summary → links.
+Inside `accordion-content` the order is: coauthors → summary → links.
 Link labels in use: `Paper`, `Companion`, `GitHub`, `Presentation`, `Stage 1 Results`.
 Separate them with `&nbsp;|&nbsp;`. All external links get
 `target="_blank" rel="noopener noreferrer"`.
@@ -111,18 +115,30 @@ publisher's exact volume title — Edward Elgar, for instance, brands some volum
 `Elgar Encyclopedia of X` but titles others plainly, so check the product page
 rather than assuming the series prefix.
 
-### `publication-date` — the month, revealed on click
+### The month — typed into the meta line on open
 
-The visible meta line carries the year; the precise date lives inside the
-accordion and fades in when it opens (`.accordion-trigger.active ~
-.accordion-content .publication-date`, opacity + 4px slide, 0.12s delay).
-Add it as the first child of `accordion-content`. Forms in use:
+Dates are **not** a separate line. The month types itself into the existing
+journal/year line when the entry is opened, so `…, 2025` becomes
+`…, January 2025` character by character. Nothing else is added: no day, no
+"Published online", no second row.
 
-- `Published online 17 January 2025`
-- `Published online 14 April 2025 &middot; Issue: August 2025, vol. 104, art. 104172`
+Mark it up as an empty span sitting between the comma and the year, with the
+month in `data-month`:
 
-Separate the online date from the issue date with `&middot;` when they differ.
-Omit the element entirely for forthcoming or unpublished work.
+```html
+<p class="publication-meta"><em>Journal of Organizational Behavior</em>, <span class="pub-month" data-month="January"></span>2025</p>
+```
+
+The span starts empty, so the line reads `…, 2025` until clicked. `typeMonth()`
+in the accordion handler writes `data-month` plus a trailing space one character
+at a time (55ms/char); `eraseMonth()` clears it on close. `.pub-month` uses
+`white-space: pre` so that trailing space survives — don't drop it, or the month
+will butt against the year.
+
+Pick **one** month per entry, the one the citation would use: the issue month
+when there is an issue, otherwise the online-first month. Resist the urge to show
+both dates or the day — that was tried and rejected. Omit the span entirely for
+forthcoming or unpublished work.
 
 ### Accordion mechanics
 
@@ -170,7 +186,6 @@ hyphen). Keep the CTA arrow `→` exactly as written.
 | Ink | `#2c3e50` | Headings, header background |
 | Body | `#333` | Text |
 | Muted | `#7f8c8d` | `publication-meta` |
-| Date grey | `#8e9aa6` | `publication-date` |
 | Link blue | `#3498db` | Links, `rh-pub`, `pub-pub` shimmer |
 | Accent purple | `#8348f2` | `rh-wp`, header sweep, icon hover |
 | WIP grey | `#95a5a6` | `rh-wip` |
