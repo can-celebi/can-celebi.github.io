@@ -957,12 +957,14 @@
         // erases it when closed. Month comes from data-month on the span.
         function typeMonth(span) {
             if (!span) return;
-            const full = (span.dataset.month || '') + ' ';
+            const month = span.dataset.month || '';
             clearTimeout(span._typeTimer);
             let i = 0;
             (function step() {
-                span.textContent = full.slice(0, i);
-                if (i < full.length) {
+                // keep the trailing space from the first keystroke on, so the
+                // month never butts against the year mid-animation
+                span.textContent = i ? month.slice(0, i) + ' ' : '';
+                if (i < month.length) {
                     i++;
                     span._typeTimer = setTimeout(step, 55);
                 }
