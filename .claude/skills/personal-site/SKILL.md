@@ -204,5 +204,6 @@ block automated fetches with a 403 — use web search results or ask the author.
 2. Confirm every moved entry's class matches its new group (`pub-pub` / `pub-wip` / none).
 3. Open the page and click each accordion you touched; check nothing is clipped.
 4. Check the mobile layout at ≤768px if you changed spacing.
-5. Commit with a descriptive message and push to `main` — but only when the
-   author has asked for it. Publishing is their call, not yours.
+5. Commit with a descriptive message and **push to `main`** — always, without
+   asking. The author reviews the site on the live URL, so an unpushed commit is
+   invisible to him. Report the commit hash when you're done.
