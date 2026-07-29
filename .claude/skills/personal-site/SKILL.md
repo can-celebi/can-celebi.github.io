@@ -62,7 +62,7 @@ Three groups, in this fixed document order, each introduced by an `<h3>`:
 |---|---|---|---|
 | Working Papers | `research-heading rh-wp` | `publication` | Circulating, under review or R&R — **blue** |
 | Publications | `research-heading rh-pub` | `publication pub-pub` | Accepted or published — **purple** |
-| Work in Progress | `research-heading rh-wip` | `publication pub-wip` | Early-stage, title + coauthors only |
+| Work in Progress | `research-heading rh-wip` | `publication pub-wip` | Early-stage, short title + coauthors only |
 
 The entry class drives the idle shimmer colour and the journal-name tint
 (blue / purple / grey), so it must match the group the entry sits in. Moving a paper between groups means moving the
@@ -75,6 +75,17 @@ The entry class drives the idle shimmer colour and the journal-name tint
   entry: forthcoming first, then newest to oldest, oldest at the bottom. Adding
   a paper here means re-checking the whole group's order, not just appending.
 - **Work in Progress** — author's preference; no dates shown.
+
+Work in Progress entries show **only the part of the title before the colon** —
+`Clarifying Without Bias`, not `Clarifying Without Bias: Chatbots as
+Research-Assistants…`. Keep the full title in a `title="…"` attribute on the
+`<p>` so it survives as a hover tooltip and stays in the markup:
+
+```html
+<p class="publication-title" title="Beyond Accuracy: Stability Metrics for Large Language Model Classifiers">Beyond Accuracy</p>
+```
+
+Working Papers and Publications keep their full titles.
 
 ### Entry template
 
@@ -198,11 +209,17 @@ hyphen). Keep the CTA arrow `→` exactly as written.
 | Body | `#333` | Text |
 | Muted | `#7f8c8d` | `publication-meta` |
 | Link blue | `#3498db` | Links, `rh-wp`, working-paper shimmer |
-| Journal blue | `#3d9ad9` | `<em>` journal names in Working Papers |
-| Journal purple | `#8b52f0` | `<em>` journal names in Publications |
+| Journal blue | `#3d9ad9bf` | `<em>` journal names in Working Papers |
+| Journal purple | `#8b52f0a6` | `<em>` journal names in Publications |
 | Accent purple | `#8348f2` | `rh-pub`, `pub-pub` shimmer, header sweep, icon hover |
 | WIP grey | `#95a5a6` | `rh-wip` |
 | Page | `#f9f9f9` / container `#fff` | Backgrounds |
+
+Accent colours carry an alpha suffix on purpose. Journal names sit at or just
+below the fadedness of their section heading (`c7` / `ad`) so they read as a
+quiet accent rather than competing with the paper title — visible enough to scan,
+never louder than the title above them. If you brighten them, you have broken
+the intended hierarchy.
 
 Fonts: `Lora` (serif) for `h1`/display, `Open Sans` for body, `monospace` for
 links and the affiliation line. Animations are deliberately slow and low-contrast
