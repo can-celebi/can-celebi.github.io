@@ -121,7 +121,7 @@ Separate them with `&nbsp;|&nbsp;`. All external links get
 | Revise & resubmit | `<em>JEBO</em>: R&amp;R` |
 | Accepted, not yet issued | `<em>PLOS ONE</em>, forthcoming` |
 | Published | `<em>Journal of Organizational Behavior</em>, 2025` |
-| Book chapter | `<em>Encyclopedia Title</em>, Edward Elgar, forthcoming` |
+| Book chapter | `<em>Elgar Encyclopedia of X</em>, forthcoming` |
 
 **The journal name always leads the line**, before the colon in Working Papers
 and before the comma in Publications, so the outlets scan vertically down the
@@ -129,10 +129,14 @@ list. Always wrap it in `<em>` — that is what the accent colour hooks onto, so
 unwrapped name silently loses its tint. Entries with no named outlet (`Under peer
 review`) are the only exception.
 
-Use the journal's own capitalisation (`PLOS ONE`, not `PLOS One`) and the
-publisher's exact volume title — Edward Elgar, for instance, brands some volumes
-`Elgar Encyclopedia of X` but titles others plainly, so check the product page
-rather than assuming the series prefix.
+Use the journal's own capitalisation (`PLOS ONE`, not `PLOS One`).
+
+**The outlet name stands alone — never add a separate publisher clause.** Write
+`<em>Elgar Encyclopedia of Experimental Social Science</em>, forthcoming`, not
+`…, Edward Elgar, forthcoming`. For book chapters this means folding the
+publisher into the title via its series branding (`Elgar Encyclopedia of …`)
+rather than crediting it after the comma. Only the outlet and the status/date
+belong on that line.
 
 ### The month — typed into the meta line on open
 
