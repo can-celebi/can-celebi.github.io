@@ -60,12 +60,12 @@ Three groups, in this fixed document order, each introduced by an `<h3>`:
 
 | Heading | Class | Entry class | Meaning |
 |---|---|---|---|
-| Working Papers | `research-heading rh-wp` | `publication` | Circulating, under review or R&R |
-| Publications | `research-heading rh-pub` | `publication pub-pub` | Accepted or published |
+| Working Papers | `research-heading rh-wp` | `publication` | Circulating, under review or R&R — **blue** |
+| Publications | `research-heading rh-pub` | `publication pub-pub` | Accepted or published — **purple** |
 | Work in Progress | `research-heading rh-wip` | `publication pub-wip` | Early-stage, title + coauthors only |
 
-The entry class drives the idle shimmer colour (purple / blue / grey), so it must
-match the group the entry sits in. Moving a paper between groups means moving the
+The entry class drives the idle shimmer colour and the journal-name tint
+(blue / purple / grey), so it must match the group the entry sits in. Moving a paper between groups means moving the
 `<div>` **and** fixing its class.
 
 ### Ordering
@@ -107,10 +107,16 @@ Separate them with `&nbsp;|&nbsp;`. All external links get
 | Stage | Markup |
 |---|---|
 | Under review | `Under peer review` |
-| Revise & resubmit | `R&amp;R in <em>JEBO</em>` |
+| Revise & resubmit | `<em>JEBO</em>: R&amp;R` |
 | Accepted, not yet issued | `<em>PLOS ONE</em>, forthcoming` |
 | Published | `<em>Journal of Organizational Behavior</em>, 2025` |
 | Book chapter | `<em>Encyclopedia Title</em>, Edward Elgar, forthcoming` |
+
+**The journal name always leads the line**, before the colon in Working Papers
+and before the comma in Publications, so the outlets scan vertically down the
+list. Always wrap it in `<em>` — that is what the accent colour hooks onto, so an
+unwrapped name silently loses its tint. Entries with no named outlet (`Under peer
+review`) are the only exception.
 
 Use the journal's own capitalisation (`PLOS ONE`, not `PLOS One`) and the
 publisher's exact volume title — Edward Elgar, for instance, brands some volumes
@@ -191,8 +197,10 @@ hyphen). Keep the CTA arrow `→` exactly as written.
 | Ink | `#2c3e50` | Headings, header background |
 | Body | `#333` | Text |
 | Muted | `#7f8c8d` | `publication-meta` |
-| Link blue | `#3498db` | Links, `rh-pub`, `pub-pub` shimmer |
-| Accent purple | `#8348f2` | `rh-wp`, header sweep, icon hover |
+| Link blue | `#3498db` | Links, `rh-wp`, working-paper shimmer |
+| Journal blue | `#3d9ad9` | `<em>` journal names in Working Papers |
+| Journal purple | `#8b52f0` | `<em>` journal names in Publications |
+| Accent purple | `#8348f2` | `rh-pub`, `pub-pub` shimmer, header sweep, icon hover |
 | WIP grey | `#95a5a6` | `rh-wip` |
 | Page | `#f9f9f9` / container `#fff` | Backgrounds |
 

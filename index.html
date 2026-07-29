@@ -334,14 +334,14 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(105deg, transparent 30%, rgba(131, 72, 242, 0.09) 50%, transparent 70%);
+            background: linear-gradient(105deg, transparent 30%, rgba(52, 152, 219, 0.09) 50%, transparent 70%);
             transform: translateX(-110%);
             pointer-events: none;
             z-index: 0;
             animation: card-shimmer 32s ease-in-out infinite;
         }
         .publication.pub-pub::after {
-            background: linear-gradient(105deg, transparent 30%, rgba(52, 152, 219, 0.09) 50%, transparent 70%);
+            background: linear-gradient(105deg, transparent 30%, rgba(131, 72, 242, 0.09) 50%, transparent 70%);
         }
         .publication.pub-wip::after {
             background: linear-gradient(105deg, transparent 30%, rgba(149, 165, 166, 0.08) 50%, transparent 70%);
@@ -358,14 +358,14 @@
         }
 
 
-        /* Working Papers: purple (active line of work) */
+        /* Working Papers: blue (active line of work) */
         .research-heading.rh-wp {
-            color: #8348f2ad;
+            color: #3498dbc7;
         }
 
-        /* Publications: blue (settled) — extra top space to separate from working papers */
+        /* Publications: purple (settled) — extra top space to separate from working papers */
         .research-heading.rh-pub {
-            color: #3498dbc7;
+            color: #8348f2ad;
             margin-top: 70px;
         }
 
@@ -429,6 +429,17 @@
             margin: 5px 0 10px 0;
         }
         
+        /* Journal names carry their section's accent so they scan down the list.
+           Working Papers: blue. Publications: purple. */
+        .publication .publication-meta em {
+            color: #3d9ad9;
+            font-weight: 600;
+        }
+
+        .publication.pub-pub .publication-meta em {
+            color: #8b52f0;
+        }
+
         /* Month, typed into the journal/year line when the accordion opens */
         .pub-month {
             font: inherit;
@@ -689,7 +700,7 @@
                     <p class="publication-title">Strategic Thinking in Jury Decisions: An Experimental Study</p>
                     <span class="accordion-arrow"></span>
                 </div>
-                <p class="publication-meta">R&amp;R in <em>JEBO</em></p>
+                <p class="publication-meta"><em>JEBO</em>: R&amp;R</p>
 
                 <div class="accordion-content">
                     <p class="publication-meta jointWith">joint with Stefan P. Penczynski</p>
@@ -704,7 +715,7 @@
                     <p class="publication-title">Meme Money, Real People: Decoding the Crypto Memecoin Crowd</p>
                     <span class="accordion-arrow"></span>
                 </div>
-                <p class="publication-meta">R&amp;R in IRFA</p>
+                <p class="publication-meta"><em>IRFA</em>: R&amp;R</p>
 
                 <div class="accordion-content">
                     <p class="publication-meta jointWith">joint with Stefano Balietti, David Tercero-Lucas, Luca Pennella</p>
