@@ -78,8 +78,8 @@ match the group the entry sits in. Moving a paper between groups means moving th
 
 ### Entry template
 
-Working paper or publication (Work in Progress omits `publication-meta`,
-`publication-date`, and usually the summary):
+Working paper or publication (Work in Progress omits `publication-meta` and
+usually the summary):
 
 ```html
 <div class="publication pub-pub">
