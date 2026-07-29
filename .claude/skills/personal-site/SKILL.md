@@ -71,7 +71,9 @@ match the group the entry sits in. Moving a paper between groups means moving th
 ### Ordering
 
 - **Working Papers** — newest / most active first, by the author's preference.
-- **Publications** — forthcoming entries first, then published ones newest-first.
+- **Publications** — strictly reverse-chronological by the month shown on the
+  entry: forthcoming first, then newest to oldest, oldest at the bottom. Adding
+  a paper here means re-checking the whole group's order, not just appending.
 - **Work in Progress** — author's preference; no dates shown.
 
 ### Entry template
@@ -85,7 +87,7 @@ Working paper or publication (Work in Progress omits `publication-meta`,
         <p class="publication-title">Title of the Paper</p>
         <span class="accordion-arrow"></span>
     </div>
-    <p class="publication-meta"><em>Journal Name</em>, <span class="pub-month" data-month="January"></span>2025</p>
+    <p class="publication-meta"><em>Journal Name</em>, 2025<span class="pub-month" data-month="January"></span></p>
 
     <div class="accordion-content">
         <p class="publication-meta jointWith">joint with Co Author, Another Author</p>
@@ -118,27 +120,30 @@ rather than assuming the series prefix.
 ### The month — typed into the meta line on open
 
 Dates are **not** a separate line. The month types itself into the existing
-journal/year line when the entry is opened, so `…, 2025` becomes
-`…, January 2025` character by character. Nothing else is added: no day, no
-"Published online", no second row.
+journal/year line when the entry is opened, so `…, 2025` becomes `…, 2025 January`
+character by character, and un-types itself when the entry is closed. Nothing
+else is added: no day, no "Published online", no second row.
 
-Mark it up as an empty span sitting between the comma and the year, with the
-month in `data-month`:
+**The month goes after the year** — `2025 January`, not `January 2025`.
+
+Mark it up as an empty span sitting after the year, with the month in `data-month`:
 
 ```html
-<p class="publication-meta"><em>Journal of Organizational Behavior</em>, <span class="pub-month" data-month="January"></span>2025</p>
+<p class="publication-meta"><em>Journal of Organizational Behavior</em>, 2025<span class="pub-month" data-month="January"></span></p>
 ```
 
-The span starts empty, so the line reads `…, 2025` until clicked. `typeMonth()`
-in the accordion handler writes `data-month` plus a trailing space one character
-at a time (55ms/char); `eraseMonth()` clears it on close. `.pub-month` uses
-`white-space: pre` so that trailing space survives — don't drop it, or the month
-will butt against the year.
+The span starts empty, so the line reads `…, 2025` until clicked. In the
+accordion handler, `typeMonth()` writes a leading space plus `data-month` one
+character at a time (55ms/char) and `eraseMonth()` runs the same thing backwards
+(40ms/char, slightly quicker, as deletion should be). Both keep the leading space
+present from the first keystroke so the month never touches the year mid-flight;
+`.pub-month` sets `white-space: pre` so that space survives. Closing must animate
+— never blank the span outright.
 
-Pick **one** month per entry, the one the citation would use: the issue month
-when there is an issue, otherwise the online-first month. Resist the urge to show
-both dates or the day — that was tried and rejected. Omit the span entirely for
-forthcoming or unpublished work.
+Pick **one** month per entry: the date the paper first became available online,
+which is what the author treats as its publication date. Don't use the print
+issue month, don't show both, don't show the day — all three were tried and
+rejected. Omit the span entirely for forthcoming or unpublished work.
 
 ### Accordion mechanics
 
@@ -208,8 +213,8 @@ for k in ['title','container-title','published-online','published-print','volume
 "
 ```
 
-`published-online` is the "first available" date, `published-print` the issue.
-Report both when they differ. Publisher sites (e-elgar.com, elgaronline.com)
+`published-online` is the "first available" date and is the one to use;
+`published-print` is the issue date, which this site does not show. Publisher sites (e-elgar.com, elgaronline.com)
 block automated fetches with a 403 — use web search results or ask the author.
 
 ## Before you commit
