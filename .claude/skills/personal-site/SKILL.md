@@ -118,14 +118,15 @@ Separate them with `&nbsp;|&nbsp;`. All external links get
 | Stage | Markup |
 |---|---|
 | Under review | `Under peer review` |
-| Revise & resubmit | `<em>JEBO</em>: R&amp;R` |
+| Revise & resubmit | `R&amp;R: <em>JEBO</em>` |
 | Accepted, not yet issued | `<em>PLOS ONE</em>, forthcoming` |
 | Published | `<em>Journal of Organizational Behavior</em>, 2025` |
 | Book chapter | `<em>Elgar Encyclopedia of X</em>, forthcoming` |
 
-**The journal name always leads the line**, before the colon in Working Papers
-and before the comma in Publications, so the outlets scan vertically down the
-list. Always wrap it in `<em>` — that is what the accent colour hooks onto, so an
+In **Working Papers** the status leads and the outlet follows the colon
+(`R&amp;R: <em>JEBO</em>`); in **Publications** the outlet leads and the date
+follows the comma. Either way the outlet is the only coloured token on the line,
+which is what makes it scannable. Always wrap it in `<em>` — that is what the accent colour hooks onto, so an
 unwrapped name silently loses its tint. Entries with no named outlet (`Under peer
 review`) are the only exception.
 
