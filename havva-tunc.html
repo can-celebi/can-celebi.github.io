@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Protected Project — Can Çelebi</title>
+<style id="gate-style">
+    @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=Open+Sans:wght@300;400;600&display=swap');
+
+    #gate * { box-sizing: border-box; }
+    #gate {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f9f9f9;
+        font-family: 'Open Sans', sans-serif;
+        color: #333;
+        padding: 24px;
+    }
+    #gate .panel {
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+        max-width: 460px;
+        width: 100%;
+        padding: 42px 38px;
+        text-align: center;
+    }
+    #gate h1 {
+        font-family: 'Lora', serif;
+        font-size: 1.55em;
+        color: #2c3e50;
+        margin: 0 0 6px 0;
+        font-weight: 600;
+    }
+    #gate .meta {
+        font-family: monospace;
+        font-size: 0.78em;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #c97b63bb;
+        margin: 0 0 26px 0;
+    }
+    #gate p.blurb {
+        font-size: 0.95em;
+        line-height: 1.65;
+        color: #555;
+        margin: 0 0 28px 0;
+    }
+    #gate .row { display: flex; gap: 10px; justify-content: center; }
+    #gate input {
+        font-family: monospace;
+        font-size: 1.15em;
+        letter-spacing: 0.3em;
+        text-align: center;
+        padding: 12px 14px;
+        width: 160px;
+        border: 1px solid #d5d5d5;
+        border-radius: 6px;
+        background: #fcfcfc;
+        color: #2c3e50;
+        outline: none;
+        transition: border-color 0.25s;
+    }
+    #gate input:focus { border-color: #c97b63; }
+    #gate button {
+        font-family: monospace;
+        font-size: 0.95em;
+        padding: 12px 22px;
+        border: 1px solid #c97b63;
+        background: #fff;
+        color: #c97b63;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background 0.25s, color 0.25s;
+    }
+    #gate button:hover:not(:disabled) { background: #c97b63; color: #fff; }
+    #gate button:disabled { opacity: 0.55; cursor: default; }
+    #gate .msg {
+        min-height: 20px;
+        margin-top: 18px;
+        font-size: 0.85em;
+        font-family: monospace;
+        color: #b5533c;
+    }
+    #gate .msg.working { color: #7f8c8d; }
+    #gate .back {
+        display: inline-block;
+        margin-top: 30px;
+        color: #3498db;
+        font-family: monospace;
+        font-size: 0.88em;
+        text-decoration: none;
+    }
+    #gate .back:hover { text-decoration: underline; }
+    @media (max-width: 480px) {
+        #gate .panel { padding: 32px 24px; }
+        #gate .row { flex-direction: column; align-items: center; }
+    }
+</style>
+</head>
+<body>
+
+<div id="gate">
+    <div class="panel">
+        <h1>Protected project</h1>
+        <p class="meta">personal · access code required</p>
+        <p class="blurb">
+            Personal project. Access is limited to those involved.
+        </p>
+        <div class="row">
+            <input id="code" type="password" inputmode="numeric" autocomplete="off"
+                   maxlength="24" placeholder="····" aria-label="Access code">
+            <button id="go">Unlock</button>
+        </div>
+        <div class="msg" id="msg" role="status" aria-live="polite"></div>
+        <a class="back" href="projects.html">← Back to projects</a>
+    </div>
+</div>
+
+<script>
+(function () {
+    const $code = document.getElementById('code');
+    const $go   = document.getElementById('go');
+    const $msg  = document.getElementById('msg');
+
+    const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+
+    async function unlock() {
+        const code = $code.value.trim();
+        if (!code) { $msg.className = 'msg'; $msg.textContent = 'Enter the code.'; return; }
+
+        $go.disabled = true;
+        $msg.className = 'msg working';
+        $msg.textContent = 'Decrypting…';
+
+        try {
+            const blob = await (await fetch('havva-payload.json', { cache: 'no-store' })).json();
+
+            const base = await crypto.subtle.importKey(
+                'raw', new TextEncoder().encode(code), 'PBKDF2', false, ['deriveKey']);
+            const key = await crypto.subtle.deriveKey(
+                { name: 'PBKDF2', salt: b64(blob.salt), iterations: blob.iter, hash: 'SHA-256' },
+                base, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
+
+            const plain = await crypto.subtle.decrypt(
+                { name: 'AES-GCM', iv: b64(blob.iv) }, key, b64(blob.ct));
+
+            const html = new TextDecoder().decode(plain);
+
+            // Swap the gate out for the decrypted panel.
+            document.getElementById('gate').remove();
+            document.getElementById('gate-style').remove();
+
+            const host = document.createElement('div');
+            host.id = 'panel-host';
+            host.innerHTML = html;
+            document.body.appendChild(host);
+
+            document.title = 'Üniversite Karar Paneli';
+            document.documentElement.lang = 'tr';
+
+            // innerHTML does not run scripts — re-create them so they execute.
+            // Scoped to the injected host so this page's own script is untouched.
+            host.querySelectorAll('script').forEach(old => {
+                const s = document.createElement('script');
+                s.textContent = old.textContent;
+                old.replaceWith(s);
+            });
+        } catch (err) {
+            $go.disabled = false;
+            $msg.className = 'msg';
+            $msg.textContent = 'That code did not work.';
+            $code.select();
+        }
+    }
+
+    $go.addEventListener('click', unlock);
+    $code.addEventListener('keydown', e => { if (e.key === 'Enter') unlock(); });
+    $code.focus();
+})();
+</script>
+
+</body>
+</html>
