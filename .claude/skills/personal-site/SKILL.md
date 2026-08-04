@@ -74,6 +74,9 @@ The entry class drives the idle shimmer colour and the journal-name tint
 - **Publications** — strictly reverse-chronological by the month shown on the
   entry: forthcoming first, then newest to oldest, oldest at the bottom. Adding
   a paper here means re-checking the whole group's order, not just appending.
+  **Book chapters are exempt and sit below every journal article**, whatever
+  their date or forthcoming status — otherwise the forthcoming-first rule floats
+  the one non-peer-reviewed item into the most prominent slot in the section.
 - **Work in Progress** — author's preference; no dates shown.
 
 Work in Progress entries show **only the part of the title before the colon** —
@@ -121,7 +124,7 @@ Separate them with `&nbsp;|&nbsp;`. All external links get
 | Revise & resubmit | `R&amp;R: <em>JEBO</em>` |
 | Accepted, not yet issued | `<em>PLOS ONE</em>, forthcoming` |
 | Published | `<em>Journal of Organizational Behavior</em>, 2025` |
-| Book chapter | `<em>Elgar Encyclopedia of X</em>, forthcoming` |
+| Book chapter | `Book chapter: <em>Elgar Encyclopedia of X</em>, forthcoming` |
 
 In **Working Papers** the status leads and the outlet follows the colon
 (`R&amp;R: <em>JEBO</em>`); in **Publications** the outlet leads and the date
@@ -133,11 +136,19 @@ review`) are the only exception.
 Use the journal's own capitalisation (`PLOS ONE`, not `PLOS One`).
 
 **The outlet name stands alone — never add a separate publisher clause.** Write
-`<em>Elgar Encyclopedia of Experimental Social Science</em>, forthcoming`, not
-`…, Edward Elgar, forthcoming`. For book chapters this means folding the
+`Book chapter: <em>Elgar Encyclopedia of Experimental Social Science</em>, forthcoming`,
+not `…, Edward Elgar, forthcoming`. For book chapters this means folding the
 publisher into the title via its series branding (`Elgar Encyclopedia of …`)
-rather than crediting it after the comma. Only the outlet and the status/date
-belong on that line.
+rather than crediting it after the comma. Only the genre prefix, the outlet and
+the status/date belong on that line.
+
+**Non-article work carries a genre prefix.** Anything in Publications that is not
+a peer-reviewed journal article leads with its genre before the colon —
+`Book chapter: <em>…</em>` — reusing the Working-Papers grammar where the status
+leads and the outlet follows the colon. The outlet stays the only `<em>`-wrapped,
+tinted token, so the line still scans the same way. Journal articles take no
+prefix; the bare outlet name *is* the claim of peer review, which is why leaving
+a chapter unmarked overstates it.
 
 ### The month — typed into the meta line on open
 
