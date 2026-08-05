@@ -41,6 +41,15 @@
   {}{0em}{}
 \titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
 
+% --- titlesec compatibility ---
+% titlesec >= 2.10.1 on recent TeX Live throws "Entered in horizontal mode"
+% at the first \section. Harmless on Overleaf's older TeX Live; keep it so
+% the CV builds outside Overleaf too.
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\ttlh@hang}{\parindent\z@}{\parindent\z@\leavevmode}{}{}
+\makeatother
+
 %-------------------------------------------
 %%%%%%  CV STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
@@ -113,6 +122,14 @@
 \begin{itemize}[leftmargin=0.15in, label=\textbullet, itemsep=5pt]
 
     \item[] \begin{minipage}{\linewidth}
+        \href{https://doi.org/10.1371/journal.pone.0354757}{\small{\textbf{Much Ado about Prompting: LLM Classification of Text Messages from Experiments}}} \\
+        \small{\textit{PLOS ONE}, 2026.}
+        \par{\raggedleft\footnotesize{joint with Stefan P. Penczynski}\par}
+    \end{minipage}
+
+    \vspace{0.2cm}
+
+    \item[] \begin{minipage}{\linewidth}
         \href{https://doi.org/10.1002/job.2856}{\small{\textbf{Navigating AI Convergence in Human-Artificial Intelligence Teams: A Signaling Theory Approach}}} \\
         \small{\textit{Journal of Organizational Behavior}, 2025.}
         \par{\raggedleft\footnotesize{joint with Andria Smith, Huner Wagoner, Ksenia Keplinger}\par}
@@ -149,13 +166,6 @@
     \vspace{0.2cm}
 
     \item[] \begin{minipage}{\linewidth}
-    \href{https://ueaeco.github.io/working-papers/papers/cbess/UEA-CBESS-24-01.pdf}{\small{\textbf{Using Large Language Models for Text Classification in the Social Sciences}}} \\\textit{R\&R in PLOS One}
-    \par{\raggedleft\footnotesize{joint with Stefan P. Penczynski}\par}
-    \end{minipage}
-
-    \vspace{0.2cm}
-
-    \item[] \begin{minipage}{\linewidth}
     \href{https://github.com/survey-data-quality-lab/mission-possible/blob/main/paper/DataQuality_March2026.pdf}{\small{\textbf{Mission Possible: The Collection of High-Quality Data}}} \\\textit{Under peer review}
     \par{\raggedleft\footnotesize{joint with Christine Exley, S\"{o}ren Harrs, Hannu Kivimaki, Marta Serra-Garcia, Jeffrey Yusof}\par}
     \end{minipage}
@@ -163,7 +173,7 @@
     \vspace{0.2cm}
 
     \item[] \begin{minipage}{\linewidth}
-    \href{https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6021706}{\small{\textbf{Meme Money, Real People: Decoding the Crypto Memecoin Crowd}}} \\\textit{Under peer review}
+    \href{https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6021706}{\small{\textbf{Meme Money, Real People: Decoding the Crypto Memecoin Crowd}}} \\\textit{R\&R in IRFA}
     \par{\raggedleft\footnotesize{joint with Stefano Balietti, David T. Lucas, Luca Pennella}\par}
     \end{minipage}
 
@@ -225,12 +235,24 @@ distributions of strategic thinking}}}
 %---------- PROFESSIONAL ACTIVITIES ----------
 \section{Professional Activities}
 
-\textbf{Referee:} \textit{Journal of Economic Behavior \& Organization}, \textit{PLOS One}, \textit{Science Advances}
+\textbf{Referee:} \textit{Journal of Economic Behavior \& Organization}, \textit{PLOS One}, \textit{Science Advances}, \textit{Frontiers in Psychology}
 
 \vspace{0.3cm}
 
 \textbf{Invited Speaker / Workshop Organizer}
 \begin{itemize}[leftmargin=0.15in, label={}]
+    \item
+        \begin{tabular*}{0.97\textwidth}[t]{@{}p{0.85\textwidth}@{\extracolsep{\fill}}r@{}}
+          \small\textbf{Invited Speaker} - \textit{LLM Text Classification} \\\small{Institute of Economics and Law, University of Stuttgart, DE} & \small{May 2026}
+        \end{tabular*}
+    \item
+        \begin{tabular*}{0.97\textwidth}[t]{@{}p{0.85\textwidth}@{\extracolsep{\fill}}r@{}}
+          \small\textbf{Invited Speaker} - \textit{LLM Text Classification} \\\small{Department of Economics and Business, Central European University, AT} & \small{May 2026}
+        \end{tabular*}
+    \item
+        \begin{tabular*}{0.97\textwidth}[t]{@{}p{0.85\textwidth}@{\extracolsep{\fill}}r@{}}
+          \small\textbf{Invited Speaker} - \textit{Gotta Catch'Em All: Web Agents in Online Surveys} \\\small{Vienna Behavioural Circle, AT} & \small{April 2026}
+        \end{tabular*}
     \item
         \begin{tabular*}{0.97\textwidth}[t]{@{}p{0.85\textwidth}@{\extracolsep{\fill}}r@{}}
           \small\textbf{Workshop Organizer} - \textit{LLM Text Classification} \\\small{School of Economics, University of East Anglia, UK}  & \small{January 2025}
@@ -344,7 +366,7 @@ distributions of strategic thinking}}}
  \begin{itemize}[leftmargin=0.15in, label={}]
    \item{
      \begin{tabular*}{0.97\textwidth}[t]{p{0.15\textwidth}p{0.82\textwidth}}
-      \textbf{Computer:} & R, z-Tree, nodeGame, JavaScript, Python \\
+      \textbf{Computer:} & R, z-Tree, oTree, nodeGame, JavaScript, Python \\
       \textbf{Languages:} & Turkish (Native), English (Fluent), French (Fluent, rusty), German (Beginner/Intermediate) \\
     \end{tabular*}
    }

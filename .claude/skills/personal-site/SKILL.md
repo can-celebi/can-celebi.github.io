@@ -48,6 +48,22 @@ PDFs live at the repo root and are linked absolutely, e.g.
 `https://can-celebi.github.io/llmClassification.pdf`. To add one, drop the file
 in the root and link it the same way.
 
+**The CV is the one PDF with source in the repo.** `cv/CV.tex` builds
+`CV.pdf` at the root, where the nav button links it. The canonical copy still
+lives on Overleaf, so *pull from Overleaf before editing* — the repo copy can
+lag, and a stale rebuild silently drops whatever the author added there. After
+editing, build in a scratch directory (never leave `.aux`/`.log` in the repo),
+copy only the PDF to the root, and diff the new text against the old with
+`pdftotext -layout` to confirm nothing but the intended change moved:
+
+```bash
+pdftotext -layout old.pdf old.txt && pdftotext -layout new.pdf new.txt && diff old.txt new.txt
+```
+
+A publication status change belongs in **both** `index.html` and `cv/CV.tex` —
+they drifted apart before. Keep the outlet shorthand identical across the two
+(the site says `R&amp;R: <em>IRFA</em>`, so the CV says `R\&R in IRFA`).
+
 **Linked subsites are separate repos.** `/prompting/`, `/games/`,
 `/clarifying-without-bias/`, `/LLM-Classifier-Tool/`, `/skepticism-instructions/`,
 `/causality/`, `/hidirellez/` are published from their own repositories under the
