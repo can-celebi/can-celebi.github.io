@@ -561,9 +561,15 @@
             .publication-title { font-size: 1em; }
             .publication-summary { font-size: 0.85em; }
 
+            /* Static flow on mobile, so the h2's padding+margin would drop the
+               ticker 30px below the title. Collapse that and keep the gap after. */
+            .title-block h2 {
+                padding-bottom: 0;
+                margin-bottom: 6px;
+            }
             .title-block .phd-ticker {
                 position: static;
-                margin: 0 0 16px 0;
+                margin: 0 0 20px 0;
                 font-size: 0.78em;
             }
 
@@ -799,16 +805,6 @@
             <div class="publication pub-wip">
                 <div class="accordion-trigger">
                     <p class="publication-title" title="Beyond Accuracy: Stability Metrics for Large Language Model Classifiers">Beyond Accuracy</p>
-                    <span class="accordion-arrow"></span>
-                </div>
-                <div class="accordion-content">
-                    <p class="publication-meta jointWith">joint with Stefan P. Penczynski</p>
-                </div>
-            </div>
-
-<div class="publication pub-wip">
-                <div class="accordion-trigger">
-                    <p class="publication-title" title="Expert, crowd and machine: comparing LLM and human classification distributions of strategic thinking">Expert, crowd and machine</p>
                     <span class="accordion-arrow"></span>
                 </div>
                 <div class="accordion-content">
